@@ -140,6 +140,10 @@ a {
 .box .row.footer {
   flex: 0 1 40px;
 }
+[contenteditable] {
+    -webkit-user-select: text;
+    user-select: text;
+}
 .main-body {
 	height: 100%;
 	display: flex;

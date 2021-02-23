@@ -99,7 +99,7 @@ const MainBody = () => {
       .then(function (response) {
         console.log(JSON.stringify(response.data));
         const redir = "/" + response.data.data
-        window.location = redir;
+         window.location = redir;
       })
       .catch(function (error) {
         console.log(error);
