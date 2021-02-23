@@ -25,28 +25,46 @@ const addToDB = async (db, data) => {
     { expires: 1 },
     { expireAfterSeconds: 10 }
   );
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTION",
+  };
   const timers = await db.collection("timers").insertOne(data);
-
+  const returnval = timers.insertedId;
   return {
     statusCode: 200,
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: timers.insertedId,
+    headers,
+    body: JSON.stringify({
+      data: returnval,
+    }),
   };
 };
 
-module.exports.handler = async (event, context) => {
-  // Check for data
-  const data = JSON.parse(event.body);
-  if (!data || !data.title || !data.expires) {
-    console.log("data error", data);
-
-    return callback(null, {
-      statusCode: 400,
-      body: "Timer details not provided correctly",
-    });
-  }
+module.exports.handler = async (event, context, callback) => {
+  switch (event.httpMethod) {
+    case "OPTIONS":
+      // To enable CORS
+      const headers = {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
+      };
+      return {
+        statusCode: 200, // <-- Must be 200 otherwise pre-flight call fails
+        headers,
+        body: "This was a preflight call!",
+      };
+    case "POST":
+      const data = JSON.parse(event.body);
+        if (!data || !data.title || !data.expires) {
+          console.log("data error", data);
+          return callback(null, {
+            statusCode: 400,
+            headers,
+            body: "Timer details not provided correctly",
+          });
+        }
   var date = new Date(data.expires * 1000);
   const timer = {
     _id: nanoid(6),
@@ -59,4 +77,7 @@ module.exports.handler = async (event, context) => {
 
   const db = await connectToDatabase(MONGODB_URI);
   return addToDB(db, timer);
+  }
+  // Check for data
+ 
 };

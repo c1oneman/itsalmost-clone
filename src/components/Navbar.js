@@ -1,4 +1,5 @@
 import React, { Component, useContext } from "react";
+import { Link } from 'react-router-dom'
 import ToggleTheme from "./ToggleTheme";
 import { ThemeContext } from "../contexts/ThemeContext";
 
@@ -11,8 +12,12 @@ const Navbar = () => {
   return (
     <div className={"navbar" + theme}>
       <div>
-        <h1>itsalmo.st clone</h1>
-        <p>by clayton loneman</p>
+        <h1>
+          <a href="https://itsalmo.st">itsalmo.st</a>&nbsp;clone
+        </h1>
+        <a href="https://loneman.dev">
+          <p>by clayton loneman</p>
+        </a>
       </div>
 
       <ToggleTheme />

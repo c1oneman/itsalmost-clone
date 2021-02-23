@@ -1,6 +1,10 @@
 import React, { useContext, useState, useRef } from "react";
+import {Redirect} from 'react-router-dom'
 import Divider from './Divider'
+import axios from 'axios'
 import { ThemeContext } from "../contexts/ThemeContext";
+const func_url = process.env.REACT_APP_FUNC_URL;
+//const func_url = "http://localhost:63389/.netlify/functions";
 
 const getContent = (id) => {
   return document.getElementById(id).textContent;
@@ -8,6 +12,24 @@ const getContent = (id) => {
 const getNumber = (id) => {
   return parseInt(document.getElementById(id).textContent);
 };
+async function postData(url = "", data) {
+  // Default options are marked with *
+  const raw = JSON.stringify(data)
+  fetch(url, {
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    // manual, *follow, error
+    body: raw, // body data type must match "Content-Type" header
+  }).then((res) => {
+    console.log(res);
+  });
+  return true; // parses JSON response into native JavaScript objects
+}
+
 
 const MainBody = () => {
   const { lightTheme } = useContext(ThemeContext);
@@ -17,7 +39,7 @@ const MainBody = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Disable submit button
-    setLoading(true)
+    setLoading(false);
     // Create an object of all 'form' data
     const object = {
       title: getContent("title"),
@@ -29,27 +51,59 @@ const MainBody = () => {
       am: isAM,
     };
     // Check if user defined PM, add 12 hours if true (24 hour time)
-    if(!object.am) {
+    if (!object.am) {
       object.hour = object.hour + 12;
     }
     // Create future date object to get expire time from
-    var future = new Date(object.year, object.month-1, object.day, object.hour, object.minute, 0, 0);
+    var future = new Date(
+      object.year,
+      object.month - 1,
+      object.day,
+      object.hour,
+      object.minute,
+      0,
+      0
+    );
 
     // Check that date is in future
-    if(future < (new Date())) {
-      console.log('Date is in past.')
-      setLoading(false)
-      return
+    if (future < new Date()) {
+      console.log("Date is in past.");
+      setLoading(false);
+      return;
     }
-    
+
     // Get unix time from future date
-    const unix = (future.getTime() / 1000);
-
-
+    const unix = future.getTime() / 1000;
+    // create object for api call
+    const timerObject = {
+      title: object.title,
+      expires: unix,
+    };
     // Output data for API
     console.log(object.title);
     console.log(unix);
-    
+    console.log(JSON.stringify(timerObject));
+    // call api function
+
+    //http://localhost:53109/.netlify/functions/create
+    var config = {
+      method: "post",
+      url: `${func_url}/create`,
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: JSON.stringify(timerObject),
+    };
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        const redir = "/" + response.data.data
+        window.location = redir;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
   function select() {
     document.execCommand("selectAll", false, null);
@@ -93,7 +147,7 @@ const MainBody = () => {
                 onClick={select}
                 className="input"
               >
-                2
+                25
               </span>
               <Divider filltext="&nbsp;/&nbsp;" />
               <span
