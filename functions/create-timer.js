@@ -61,15 +61,15 @@ exports.handler = async function (event, context, callback) {
       console.log(err)
     }
 });
-  await connect()
-    .then(async connection => {
-      const makeTimer = await Timer.create(timer);
-      Timer.createIndexes;
-      return callback(null, {
-        statusCode: 200,
-        body: JSON.stringify(makeTimer),
-      });
+  // await connect()
+  //   .then(async connection => {
+  //     const makeTimer = await Timer.create(timer);
+  //     Timer.createIndexes;
+  //     return callback(null, {
+  //       statusCode: 200,
+  //       body: JSON.stringify(makeTimer),
+  //     });
       
-    })
-  .catch(e => console.log(e));
+  //   })
+  // .catch(e => console.log(e));
 };
