@@ -42,7 +42,7 @@ const Timer = mongoose.model("timer", timer);
 
 exports.handler = async function (event, context, callback) {
   // Check for data
-  const { data } = JSON.parse(event.body);
+  const data = JSON.parse(event.body);
   if (!data || !data.title || !data.expires) {
     console.log("data error", data);
 
