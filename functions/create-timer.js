@@ -64,6 +64,6 @@ exports.handler = async function (event, context, callback) {
         statusCode: 200,
         body: makeTimer,
       });
-    }
+    })
   .catch(e => console.log(e));
 };
