@@ -56,7 +56,7 @@ exports.handler = async function (event, context, callback) {
     title: data.title,
     expiresAt: data.expires,
   };
-  mongoose.connect(`${DB_URL}/timers`);
+  mongoose.connect(`${DB_URL}`);
   var db = mongoose.connection;
   db.on("error", console.log('Failed to connect'));
   await connect()
