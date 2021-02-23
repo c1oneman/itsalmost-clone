@@ -7,7 +7,7 @@ const func_url = process.env.REACT_APP_FUNC_URL;
 //const func_url = "http://localhost:63389/.netlify/functions";
 const Timer = () => {
   const { lightTheme } = useContext(ThemeContext);
-  const [title, setTitle] = useState("loaded..")
+  const [title, setTitle] = useState()
   const [finishTime, setFinishTime] = useState()
   const theme = !lightTheme ? " darkmode" : "";
   let { id } = useParams();
@@ -39,7 +39,7 @@ const Timer = () => {
  return (
    <div class="row content">
      <div className={"main-body " + theme}>
-       <h1>It's almost {title}</h1>
+        {title ? <h1>It's almost {title}</h1> : <></>}
        <h2>
        {finishTime ? <Countdown intervalDelay={0} precision={3} autoStart={true} date={finishTime} /> : <></>}
          

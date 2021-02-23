@@ -13,7 +13,7 @@ const Navbar = () => {
     <div className={"navbar" + theme}>
       <div>
         <h1>
-          <a href="https://itsalmo.st">itsalmo.st</a>&nbsp;clone
+          <a href="https://itsalmostcl.one">itsalmo.st</a>&nbsp;clone
         </h1>
         <a href="https://loneman.dev">
           <p>by clayton loneman</p>
