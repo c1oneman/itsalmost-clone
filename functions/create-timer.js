@@ -1,6 +1,9 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 const { nanoid } = require("nanoid");
+const co = require("co");
+
+let conn = null;
 
 const DB_URL = process.env.DB_URL;
 const DB_NAME = "timers";
@@ -26,21 +29,11 @@ const connect = () => {
   return mongoose.connect(`${DB_URL}/timers`);
 };
 
-let timer = new mongoose.Schema({
-  _id: {
-    type: String,
-    default: nanoid(6),
-  },
-  title: String,
-  expireAt: {
-    type: Date,
-    default: Date.now,
-    index: { expires: "1d" },
-  },
-});
-const Timer = mongoose.model("timer", timer);
+
+//const Timer = mongoose.model("timer", timer);
 
 exports.handler = async function (event, context, callback) {
+  context.callbackWaitsForEmptyEventLoop = false;
   // Check for data
   const data = JSON.parse(event.body);
   if (!data || !data.title || !data.expires) {
@@ -56,11 +49,48 @@ exports.handler = async function (event, context, callback) {
     title: data.title,
     expiresAt: data.expires,
   };
-  mongoose.connect(`${DB_URL}/timers`, function(err) {
-    if (err) {
-      console.log(err)
+  await run().
+    then(res => {
+      callback(null, res);
+    }).
+    catch(error => callback(error));
+};
+function run() {
+  let timer = new mongoose.Schema({
+    _id: {
+      type: String,
+      default: nanoid(6),
+    },
+    title: String,
+    expireAt: {
+      type: Date,
+      default: Date.now,
+      index: { expires: "1d" },
+    },
+  });
+  return co(function* () {
+    if (conn == null) {
+      conn = yield mongoose.createConnection(`${DB_URL}/timers`, {
+        bufferCommands: false,
+        bufferMaxEntries: 0,
+      });
+      conn.model(
+        "timers",
+        timer
+      );
     }
-});
+
+    const M = conn.model("timers");
+
+    const doc = yield M.find();
+    const response = {
+      statusCode: 200,
+      body: JSON.stringify(doc),
+    };
+    console.log(response)
+    return response;
+  });
+}
   // await connect()
   //   .then(async connection => {
   //     const makeTimer = await Timer.create(timer);
@@ -72,4 +102,3 @@ exports.handler = async function (event, context, callback) {
       
   //   })
   // .catch(e => console.log(e));
-};
