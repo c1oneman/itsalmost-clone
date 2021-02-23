@@ -36,11 +36,13 @@ const MainBody = () => {
   const theme = !lightTheme ? " darkmode" : "";
   const [isAM, setAM] = useState(true)
   const [isLoading, setLoading] = useState(false)
+  var now = new Date();
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Disable submit button
-    setLoading(false);
+    setLoading(true);
     // Create an object of all 'form' data
+
     const object = {
       title: getContent("title"),
       day: getNumber("day"),
@@ -72,6 +74,13 @@ const MainBody = () => {
       return;
     }
 
+    // Check that title has changed
+    if (object.title == "___________") {
+      console.log("Title is untouched.");
+      setLoading(false);
+      return;
+    }
+
     // Get unix time from future date
     const unix = future.getTime() / 1000;
     // create object for api call
@@ -83,12 +92,11 @@ const MainBody = () => {
     console.log(object.title);
     console.log(unix);
     console.log(JSON.stringify(timerObject));
-    // call api function
+    // call function to create timer
 
-    //http://localhost:53109/.netlify/functions/create
     var config = {
       method: "post",
-      url: `${func_url}/create`,
+      url: `${func_url}/post-timer`,
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
@@ -98,8 +106,8 @@ const MainBody = () => {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
-        const redir = "/" + response.data.data
-         window.location = redir;
+        // Redirect
+        window.location = "/" + response.data.data;
       })
       .catch(function (error) {
         console.log(error);
@@ -138,7 +146,7 @@ const MainBody = () => {
                 onClick={select}
                 className="input"
               >
-                2
+                {now.getUTCMonth() + 1}
               </span>
               <Divider filltext="&nbsp;/&nbsp;" />
               <span
@@ -147,7 +155,7 @@ const MainBody = () => {
                 onClick={select}
                 className="input"
               >
-                25
+                {now.getUTCDate()}
               </span>
               <Divider filltext="&nbsp;/&nbsp;" />
               <span
@@ -156,7 +164,7 @@ const MainBody = () => {
                 onClick={select}
                 className="input"
               >
-                2021
+                {now.getUTCFullYear()}
               </span>
               <Divider filltext="&nbsp;" />
             </h2>
@@ -169,7 +177,7 @@ const MainBody = () => {
                 id="hour"
                 className="input"
               >
-                10
+                11
               </span>
               <Divider filltext=":" />
               <span
@@ -178,7 +186,7 @@ const MainBody = () => {
                 id="minute"
                 className="input"
               >
-                23
+                59
               </span>
               <Divider filltext="&nbsp;" />
 

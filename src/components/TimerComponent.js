@@ -14,11 +14,10 @@ const Timer = () => {
   useEffect(() => {
     console.log(func_url);
     // Update the document title using the browser API
-    document.title = `View Timer`;
     const data = { id: id };
     var config = {
       method: "post",
-      url: `${func_url}/get-timers`,
+      url: `${func_url}/get-timer`,
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +28,8 @@ const Timer = () => {
       .then(function (response) {
         console.log(JSON.stringify(response.data));
         setFinishTime(response.data.expires);
-        setTitle(response.data.title)
+        setTitle(response.data.title);
+        document.title = "It's almost " + response.data.title
       })
       .catch(function (error) {
         console.log(error);
