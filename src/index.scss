@@ -146,6 +146,17 @@ a {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	h1 {
+		font-size: 4rem;
+		margin: 0;
+	}
+	h2 {
+	font-size: 3em;
+	margin:0;
+	display:flex;
+	flex-direction: row;
+	align-items: center;
+	}
 }
 
 // Forms
@@ -166,17 +177,6 @@ form {
 	p {
 		margin: 0;
 		font-size: inherit;
-	}
-	h1 {
-		font-size: 4rem;
-		margin: 0;
-	}
-	h2 {
-	font-size: 3em;
-	margin:0;
-	display:flex;
-	flex-direction: row;
-	align-items: center;
 	}
 	span {
 		cursor: default;
