@@ -56,10 +56,14 @@ exports.handler = async function (event, context, callback) {
     title: data.title,
     expiresAt: data.expires,
   };
-  const makeTimer = await Timer.create(timer);
-  console.log(makeTimer)
-  return callback(null, {
-    statusCode: 200,
-    body: makeTimer,
-  });
+  connect()
+    .then(async connection => {
+      const makeTimer = await Timer.create(timer);
+      console.log(makeTimer)
+      return callback(null, {
+        statusCode: 200,
+        body: makeTimer,
+      });
+    }
+  .catch(e => console.log(e));
 };
