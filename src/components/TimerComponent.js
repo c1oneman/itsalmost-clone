@@ -8,7 +8,7 @@ const func_url = process.env.REACT_APP_FUNC_URL;
 const Timer = () => {
   const { lightTheme } = useContext(ThemeContext);
   const [title, setTitle] = useState("loaded..")
-  const [finishTime, setFinishTime] = useState(Date)
+  const [finishTime, setFinishTime] = useState()
   const theme = !lightTheme ? " darkmode" : "";
   let { id } = useParams();
   useEffect(() => {
@@ -41,7 +41,8 @@ const Timer = () => {
      <div className={"main-body " + theme}>
        <h1>It's almost {title}</h1>
        <h2>
-         <Countdown date={finishTime} />
+       {finishTime ? <Countdown intervalDelay={0} precision={3} autoStart={true} date={finishTime} /> : <></>}
+         
        </h2>
      </div>
    </div>
