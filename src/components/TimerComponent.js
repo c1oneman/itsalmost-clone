@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { ThemeContext } from "../contexts/ThemeContext";
+import Countdown from 'react-countdown'
 import axios from "axios";
 const func_url = process.env.REACT_APP_FUNC_URL;
 //const func_url = "http://localhost:63389/.netlify/functions";
@@ -36,13 +37,15 @@ const Timer = () => {
     
   });
  return (
-    <div class="row content">
-      <div className={"main-body " + theme}>
-      <h1>It's almost {title}</h1>
-      <h2>{finishTime}</h2>
-    </div>
-    </div>
-  );
+   <div class="row content">
+     <div className={"main-body " + theme}>
+       <h1>It's almost {title}</h1>
+       <h2>
+         <Countdown date={finishTime} />
+       </h2>
+     </div>
+   </div>
+ );
 
 };
 
