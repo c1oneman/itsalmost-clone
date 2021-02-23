@@ -56,9 +56,11 @@ exports.handler = async function (event, context, callback) {
     title: data.title,
     expiresAt: data.expires,
   };
-  mongoose.connect(`${DB_URL}`);
-  var db = mongoose.connection;
-  db.on("error", console.log('Failed to connect'));
+  mongoose.connect(`${DB_URL}`, function(err) {
+    if (err) {
+      console.log(err)
+    }
+});
   await connect()
     .then(async connection => {
       const makeTimer = await Timer.create(timer);
