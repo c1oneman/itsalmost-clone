@@ -32,7 +32,7 @@ const addToDB = async (db, data) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(timers),
+    body: timers.insertedId,
   };
 };
 
