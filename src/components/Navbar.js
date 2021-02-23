@@ -13,9 +13,9 @@ const Navbar = () => {
     <div className={"navbar" + theme}>
       <div>
         <h1>
-          <a href="https://almostcl.one">itsalmo.st</a>&nbsp;clone
+          <Link to='/'>itsalmo.st</Link>&nbsp;clone
         </h1>
-        <a href="https://loneman.dev">
+        <a target='_blank' href="https://loneman.dev">
           <p>by clayton loneman</p>
         </a>
       </div>

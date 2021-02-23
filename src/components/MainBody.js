@@ -1,5 +1,5 @@
 import React, { useContext, useState, useRef } from "react";
-import {Redirect} from 'react-router-dom'
+import {Redirect, useHistory} from 'react-router-dom'
 import Divider from './Divider'
 import axios from 'axios'
 import { ThemeContext } from "../contexts/ThemeContext";
@@ -37,6 +37,7 @@ const MainBody = () => {
   const [isAM, setAM] = useState(true)
   const [isLoading, setLoading] = useState(false)
   var now = new Date();
+  const {push} = useHistory() 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Disable submit button
@@ -57,7 +58,7 @@ const MainBody = () => {
       object.hour = object.hour + 12;
     }
     // Create future date object to get expire time from
-    var future = new Date(
+    const future = new Date(
       object.year,
       object.month - 1,
       object.day,
@@ -107,7 +108,7 @@ const MainBody = () => {
       .then(function (response) {
         console.log(JSON.stringify(response.data));
         // Redirect
-        window.location = "/" + response.data.data;
+        push("/" + response.data.data);
       })
       .catch(function (error) {
         console.log(error);
