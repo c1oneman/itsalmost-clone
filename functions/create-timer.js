@@ -40,7 +40,7 @@ let timer = new mongoose.Schema({
 });
 const Timer = mongoose.model("timer", timer);
 
-exports.handler = async function (event, context) {
+exports.handler = async function (event, context, callback) {
   // Check for data
   const { data } = JSON.parse(event.body);
   if (!data || !data.title || !data.expires) {
