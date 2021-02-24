@@ -2,12 +2,12 @@ import React, { Component, useContext } from "react";
 import { ThemeContext } from "../contexts/ThemeContext";
 import TextTransition, { presets } from "react-text-transition";
 
-const TimeDetailModule = ({ val, plural, singular, hideAt0 }) => {
+const TimeDetailModule = ({ val, plural, singular, hideAt0, total }) => {
   const { lightTheme } = useContext(ThemeContext);
   const theme = !lightTheme ? " darkmode" : "";
   return (
     <div className={"timebox" + theme}>
-      {val == 0 && hideAt0 ? (
+      {((val == 0 && hideAt0) || total == 0) ? (
         <></>
       ) : (
         <>

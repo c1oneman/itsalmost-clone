@@ -59,49 +59,55 @@ const Timer = () => {
      <div className={"main-body " + theme}>
        {/* <TimeDetailModule val="1" plural="days" singular="day" /> */}
        {title ? <h1>It's almost {title}</h1> : <></>}
-       <h2>
-         {finishTime ? (
-           <Countdown
-             date={finishTime}
-             renderer={(data) => (
-               <div className="timerarea">
+
+       {finishTime ? (
+         <Countdown
+           date={finishTime}
+           renderer={(data) => (
+             <div className="timerarea">
+               
+                 <p>{data.completed && "has finished"}</p>
                  <TimeDetailModule
                    val={data.seconds}
                    plural="seconds"
                    singular="second"
                    hideAt0={false}
+                   total={data.total}
                  />
                  <TimeDetailModule
                    val={data.minutes}
                    plural="minutes"
                    singular="minute"
                    hideAt0={true}
+                   total={data.total}
                  />
                  <TimeDetailModule
                    val={data.hours}
                    plural="hours"
                    singular="hour"
                    hideAt0={true}
+                   total={data.total}
                  />
                  <TimeDetailModule
                    val={data.days}
                    plural="days"
                    singular="day"
                    hideAt0={true}
+                   total={data.total}
                  />
-               </div>
-             )}
-           />
-         ) : (
-           <></>
-         )}
+              
+             </div>
+           )}
+         />
+       ) : (
+         <></>
+       )}
 
-         {doConfetti ? (
-           <Confetti width={width} height={height}></Confetti>
-         ) : (
-           <></>
-         )}
-       </h2>
+       {doConfetti ? (
+         <Confetti width={width} height={height}></Confetti>
+       ) : (
+         <></>
+       )}
      </div>
    </div>
  );
