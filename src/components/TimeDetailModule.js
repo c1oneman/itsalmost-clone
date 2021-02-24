@@ -20,7 +20,7 @@ const TimeDetailModule = ({ val, plural, singular, hideAt0, total, ms }) => {
             />
           </h1>
           <div className="numType">
-            <h2>{val > 1 ? plural : singular}</h2>
+            <h2>{val != 1 ? plural : singular}</h2>
             <p>{ms}</p>
           </div>
         </>
