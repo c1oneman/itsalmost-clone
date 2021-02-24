@@ -33,7 +33,7 @@ const Timer = () => {
       },
       data: JSON.stringify(data),
     };
-    
+
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
@@ -48,19 +48,17 @@ const Timer = () => {
         ) {
           toggleConfetti(true);
         }
-
       })
       .catch(function (error) {
         console.log(error);
       });
-    
-  });
+  }, []);
  return (
    <div class="row content">
      <div className={"main-body " + theme}>
        {title ? <h1>It's almost {title}</h1> : <></>}
        <h2>
-         {finishTime ? <Countdown date={finishTime} onPause={console.log('paused timer')}/> : <></>}
+         {(finishTime) ? <Countdown date={finishTime} onComplete={console.log('fin timer')}/> : <></>}
          
          {doConfetti ? (
            <Confetti width={width} height={height}></Confetti>
