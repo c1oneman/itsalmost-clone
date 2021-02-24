@@ -65,7 +65,16 @@ module.exports.handler = async (event, context, callback) => {
             body: "Timer details not provided correctly",
           });
         }
-  var date = new Date(data.expires * 1000);
+        var now = new Date();
+        var date = new Date(data.expires * 1000);
+       if(date.getFullYear > now.getFullYear+10) {
+        console.log("data error", data);
+        return callback(null, {
+          statusCode: 400,
+          headers,
+          body: "Timer date > 10 years :(",
+        });
+       }
   const timer = {
     _id: nanoid(6),
     title: data.title,
