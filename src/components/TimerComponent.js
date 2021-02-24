@@ -37,13 +37,18 @@ const Timer = () => {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
+        //set state
         setFinishTime(response.data.expires);
         setTitle(response.data.title);
         document.title = "It's almost " + response.data.title;
         // Eater egg
-        if (response.data.title.includes("party")) {
+        if (
+          response.data.title.includes("party") ||
+          response.data.title.includes("birthday")
+        ) {
           toggleConfetti(true);
         }
+
       })
       .catch(function (error) {
         console.log(error);

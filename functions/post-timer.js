@@ -23,7 +23,7 @@ const connectToDatabase = async (uri) => {
 const addToDB = async (db, data) => {
   const index = await db.collection('timers').createIndex(
     { expires: 1 },
-    { expireAfterSeconds: 1 }
+    { expireAfterSeconds: 10 }
   );
   const headers = {
     "Access-Control-Allow-Origin": "*",

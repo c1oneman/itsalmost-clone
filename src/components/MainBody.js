@@ -13,23 +13,7 @@ const getContent = (id) => {
 const getNumber = (id) => {
   return parseInt(document.getElementById(id).textContent);
 };
-async function postData(url = "", data) {
-  // Default options are marked with *
-  const raw = JSON.stringify(data)
-  fetch(url, {
-    method: "POST", // *GET, POST, PUT, DELETE, etc.
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    // manual, *follow, error
-    body: raw, // body data type must match "Content-Type" header
-  }).then((res) => {
-    console.log(res);
-  });
-  return true; // parses JSON response into native JavaScript objects
-}
+
 
 
 const MainBody = () => {
@@ -92,7 +76,6 @@ const MainBody = () => {
     };
 
     
-
     // Output data for API
     console.log(object.title);
     console.log(unix);
