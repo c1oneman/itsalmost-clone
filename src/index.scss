@@ -16,6 +16,7 @@ html, body, #root, .App {
 html.darkmode, body.darkmode, #root.darkmode, .App.darkmode {
   height: 100%;
 	background-color: #333;
+	
 }
 
 input:focus,
@@ -271,18 +272,35 @@ button:disabled {
 	}
 }
 .darkmode {
-	background: #333;
+	background-color: #333;
+	-webkit-transition: background-color 50ms linear;
+  -ms-transition: background-color 50ms linear;
+  transition: background-color 50ms linear;
 	h1 {
 		color: #fff;
 	}
 	h2, p {
 		color: #ddd;
 	}
+	form {
+		span.input::selection {
+		background:#ffbb00;
+	}
+	span.input {
+		color:white;
+	}
+}
+	.divider{
+		background-color: #333;
+		-webkit-transition: background-color 50ms linear;
+  	-ms-transition: background-color 50ms linear;
+  	transition: background-color 50ms linear;
+	}
 	button {
-		background-color: #26b191;
+		background-color: #3f3bff;
 	}
 	button:hover {
-	background: #00d6a4;
+	background: #0773ff;
 	}
 	button:disabled {
 	background: #032c22;

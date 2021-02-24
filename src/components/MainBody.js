@@ -189,9 +189,14 @@ const MainBody = () => {
                 id="minute"
                 className="input"
               >
-                {now.toLocaleString("en-US", {
-                  minute: "numeric",
-                })}
+                {(now.toLocaleString("en-US", {
+                  minute: "2-digit",
+                }) < 10
+                  ? "0"
+                  : "") +
+                  now.toLocaleString("en-US", {
+                    minute: "2-digit",
+                  })}
               </span>
               <Divider filltext="&nbsp;" />
 
@@ -205,7 +210,6 @@ const MainBody = () => {
                   text={isAM ? "AM" : "PM"}
                   springConfig={presets.wobbly}
                 />
-              
               </span>
             </h2>
           </div>
