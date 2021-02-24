@@ -40,8 +40,22 @@ const MainBody = () => {
     };
     // Check if user defined PM, add 12 hours if true (24 hour time)
     if (!object.am) {
-      object.hour = object.hour + 12;
+      if(object.hour == 12) {
+object.hour = 12;
+      }
+      else {
+object.hour = object.hour + 12;
+      }
+      
     }
+else {
+if (object.hour == 12) {
+ object.hour = '0'
+}
+}
+    
+    
+
     // Create future date object to get expire time from
     const future = new Date(
       object.year,
