@@ -41,18 +41,18 @@ const MainBody = () => {
     // Check if user defined PM, add 12 hours if true (24 hour time)
     if (!object.am) {
       if(object.hour == 12) {
-object.hour = 12;
+        object.hour = 12;
       }
       else {
-object.hour = object.hour + 12;
+        object.hour = object.hour + 12;
       }
       
     }
-else {
-if (object.hour == 12) {
- object.hour = '0'
-}
-}
+    else {
+      if (object.hour == 12) {
+        object.hour = '0'
+      }
+  }
     
     
 
