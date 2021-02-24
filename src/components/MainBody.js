@@ -209,6 +209,7 @@ const MainBody = () => {
                 <TextTransition
                   text={isAM ? "AM" : "PM"}
                   springConfig={presets.wobbly}
+                  direction={isAM ? "down" : "up"}
                 />
               </span>
             </h2>
