@@ -193,7 +193,7 @@ form {
 	}
 	.label {
 		cursor: default;
-		font-weight: 300;
+		font-weight: 200;
 	}
 	.pointer {
 		cursor: pointer;
@@ -233,9 +233,12 @@ button {
   line-height: 1.2;
   white-space: nowrap;
   text-decoration: none;
-  padding: 0.25rem 0.5rem;
+  padding: 0.5rem 0.75rem;
   margin: 0.25rem;
   cursor: pointer;
+}
+button:hover {
+	background: #1291ff;
 }
 button:disabled {
   background: #000d49;
@@ -244,8 +247,19 @@ button:disabled {
 }
 .darkmode {
 	background: #333;
-
-	h1, h2, p {
+	h1 {
+		color: #fff;
+	}
+	h2, p {
 		color: #ddd;
+	}
+	button {
+		background-color: #26b191;
+	}
+	button:hover {
+	background: #00d6a4;
+	}
+	button:disabled {
+	background: #032c22;
 	}
 }
