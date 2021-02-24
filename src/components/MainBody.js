@@ -1,6 +1,7 @@
 import React, { useContext, useState, useRef } from "react";
 import {Redirect, useHistory} from 'react-router-dom'
 import Divider from './Divider'
+import TextTransition, { presets } from "react-text-transition";
 import axios from 'axios'
 import { ThemeContext } from "../contexts/ThemeContext";
 const func_url = process.env.REACT_APP_FUNC_URL;
@@ -89,6 +90,9 @@ const MainBody = () => {
       title: object.title,
       expires: unix,
     };
+
+    
+
     // Output data for API
     console.log(object.title);
     console.log(unix);
@@ -117,6 +121,7 @@ const MainBody = () => {
   function select() {
     document.execCommand("selectAll", false, null);
   }
+  
   return (
     <div class="row content">
       <div className={"main-body " + theme}>
@@ -178,7 +183,7 @@ const MainBody = () => {
                 id="hour"
                 className="input"
               >
-                11
+                12
               </span>
               <Divider filltext=":" />
               <span
@@ -187,7 +192,9 @@ const MainBody = () => {
                 id="minute"
                 className="input"
               >
-                59
+                {now.toLocaleString("en-US", {
+                  minute: "numeric",
+                })}
               </span>
               <Divider filltext="&nbsp;" />
 
@@ -197,7 +204,11 @@ const MainBody = () => {
                   setAM(!isAM);
                 }}
               >
-                {isAM ? "AM" : "PM"}
+                <TextTransition
+                  text={isAM ? "AM" : "PM"}
+                  springConfig={presets.wobbly}
+                />
+              
               </span>
             </h2>
           </div>
