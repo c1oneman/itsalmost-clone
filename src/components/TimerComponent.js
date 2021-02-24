@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { ThemeContext } from "../contexts/ThemeContext";
 import Countdown from 'react-countdown'
 import axios from "axios";
+import TimeDetailModule from './TimeDetailModule'
 import useWindowSize from "react-use/lib/useWindowSize";
 import Confetti from "react-confetti";
 const func_url = process.env.REACT_APP_FUNC_URL;
@@ -56,10 +57,41 @@ const Timer = () => {
  return (
    <div class="row content">
      <div className={"main-body " + theme}>
+       {/* <TimeDetailModule val="1" plural="days" singular="day" /> */}
        {title ? <h1>It's almost {title}</h1> : <></>}
        <h2>
-         {(finishTime) ? <Countdown date={finishTime} onComplete={console.log('fin timer')}/> : <></>}
-         
+         {finishTime ? (
+           <Countdown
+             date={finishTime}
+             renderer={(data) => (
+               <div className="timerarea">
+                 <TimeDetailModule
+                   val={data.seconds}
+                   plural="seconds"
+                   singular="second"
+                 />
+                 <TimeDetailModule
+                   val={data.minutes}
+                   plural="minutes"
+                   singular="minute"
+                 />
+                 <TimeDetailModule
+                   val={data.hours}
+                   plural="hours"
+                   singular="hour"
+                 />
+                 <TimeDetailModule
+                   val={data.days}
+                   plural="days"
+                   singular="day"
+                 />
+               </div>
+             )}
+           />
+         ) : (
+           <></>
+         )}
+
          {doConfetti ? (
            <Confetti width={width} height={height}></Confetti>
          ) : (

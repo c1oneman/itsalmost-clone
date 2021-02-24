@@ -245,6 +245,25 @@ button:disabled {
   color: rgb(110, 110, 110);
 	cursor: default;
 }
+.timerarea {
+	display:flex;
+	flex-direction: row-reverse;
+}
+.timebox {
+	display:flex;
+	align-items: flex-start;
+	margin:12px;
+	h1 {
+		font-size: 4rem;
+		font-weight: 600;
+	}
+	h2 {
+		color: #333;
+		margin-top:12px;
+		font-weight: 400;
+		font-size: 2rem;
+	}
+}
 .darkmode {
 	background: #333;
 	h1 {
