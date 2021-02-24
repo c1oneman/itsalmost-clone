@@ -69,21 +69,25 @@ const Timer = () => {
                    val={data.seconds}
                    plural="seconds"
                    singular="second"
+                   hideAt0={false}
                  />
                  <TimeDetailModule
                    val={data.minutes}
                    plural="minutes"
                    singular="minute"
+                   hideAt0={true}
                  />
                  <TimeDetailModule
                    val={data.hours}
                    plural="hours"
                    singular="hour"
+                   hideAt0={true}
                  />
                  <TimeDetailModule
                    val={data.days}
                    plural="days"
                    singular="day"
+                   hideAt0={true}
                  />
                </div>
              )}

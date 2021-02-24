@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from "react";
+import React, { useContext, useState } from "react";
 import {Redirect, useHistory} from 'react-router-dom'
 import Divider from './Divider'
 import TextTransition, { presets } from "react-text-transition";
