@@ -168,15 +168,15 @@ a {
 // Forms
 
 form {
-.input-row {
+
+.input-row {	
 	padding: 0 18px 0 18px;
 	margin-bottom: 12px;
 	display:flex;
 	flex-direction: row;
 	font-family: Arial, Helvetica, sans-serif;
-
+	flex-wrap: wrap;
 	align-items: center;
-	flex-shrink: initial;
 	justify-content: center;
 	user-select: none;
 	cursor: default;
@@ -190,6 +190,8 @@ form {
 	span.input {
 		cursor: text;
 	}
+	
+	
 	span.input::selection {
 		background:#ffd073;
 	}
@@ -249,6 +251,8 @@ button:disabled {
 }
 .timerarea {
 	display:flex;
+	flex-wrap: wrap-reverse;
+	justify-content: center;
 	flex-direction: row-reverse;
 }
 .timebox {
