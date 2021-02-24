@@ -63,16 +63,19 @@ const Timer = () => {
        {finishTime ? (
          <Countdown
            date={finishTime}
+           intervalDelay={100}
+           precision={3}
            renderer={(data) => (
-             <div className="timerarea">
-               
-                 <p>{data.completed && "has finished"}</p>
+             <>
+               <div className="timerarea">
+                 <p>{data.completed && "now."}</p>
                  <TimeDetailModule
                    val={data.seconds}
                    plural="seconds"
                    singular="second"
                    hideAt0={false}
                    total={data.total}
+                   ms={data.milliseconds}
                  />
                  <TimeDetailModule
                    val={data.minutes}
@@ -95,8 +98,8 @@ const Timer = () => {
                    hideAt0={true}
                    total={data.total}
                  />
-              
-             </div>
+               </div>
+             </>
            )}
          />
        ) : (
