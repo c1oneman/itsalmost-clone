@@ -13,7 +13,9 @@ const Navbar = () => {
           <Link to="/">itsalmo.st</Link>&nbsp;clone
         </h1>
         <a target="_blank" rel="noreferrer" href="https://loneman.dev">
-          <p>by clayton loneman</p>
+          <p>
+            by Clayton Loneman <span className="dev">-></span>
+          </p>
         </a>
       </div>
 
