@@ -1,28 +1,26 @@
-import React, { useContext, useState } from "react";
-import {Redirect, useHistory} from 'react-router-dom'
-import Divider from './Divider'
-import TextTransition, { presets } from "react-text-transition";
-import axios from 'axios'
-import { ThemeContext } from "../contexts/ThemeContext";
+import React, {useContext, useState} from "react";
+import {useHistory} from "react-router-dom";
+import Divider from "./Divider";
+import TextTransition, {presets} from "react-text-transition";
+import axios from "axios";
+import {ThemeContext} from "../contexts/ThemeContext";
 const func_url = process.env.REACT_APP_FUNC_URL;
 //const func_url = "http://localhost:63389/.netlify/functions";
 
 const getContent = (id) => {
   return document.getElementById(id).textContent;
-}
+};
 const getNumber = (id) => {
   return parseInt(document.getElementById(id).textContent);
 };
 
-
-
 const MainBody = () => {
-  const { lightTheme } = useContext(ThemeContext);
+  const {lightTheme} = useContext(ThemeContext);
   const theme = !lightTheme ? " darkmode" : "";
-  const [isAM, setAM] = useState(true)
-  const [isLoading, setLoading] = useState(false)
+  const [isAM, setAM] = useState(true);
+  const [isLoading, setLoading] = useState(false);
   var now = new Date();
-  const {push} = useHistory() 
+  const {push} = useHistory();
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Disable submit button
@@ -40,21 +38,16 @@ const MainBody = () => {
     };
     // Check if user defined PM, add 12 hours if true (24 hour time)
     if (!object.am) {
-      if(object.hour == 12) {
+      if (object.hour === 12) {
         object.hour = 12;
-      }
-      else {
+      } else {
         object.hour = object.hour + 12;
       }
-      
-    }
-    else {
-      if (object.hour == 12) {
-        object.hour = '0'
+    } else {
+      if (object.hour === 12) {
+        object.hour = "0";
       }
-  }
-    
-    
+    }
 
     // Create future date object to get expire time from
     const future = new Date(
@@ -75,7 +68,7 @@ const MainBody = () => {
     }
 
     // Check that title has changed
-    if (object.title == "___________") {
+    if (object.title === "___________") {
       console.log("Title is untouched.");
       setLoading(false);
       return;
@@ -89,7 +82,6 @@ const MainBody = () => {
       expires: unix,
     };
 
-    
     // Output data for API
     console.log(object.title);
     console.log(unix);
@@ -118,7 +110,7 @@ const MainBody = () => {
   function select() {
     document.execCommand("selectAll", false, null);
   }
-  
+
   return (
     <div class="row content">
       <div className={"main-body " + theme}>
@@ -143,30 +135,15 @@ const MainBody = () => {
             <h2>
               <p className="label">on</p>
               <Divider filltext="&nbsp;" />
-              <span
-                contentEditable={true}
-                id="month"
-                onClick={select}
-                className="input"
-              >
+              <span contentEditable={true} id="month" onClick={select} className="input">
                 {now.getUTCMonth() + 1}
               </span>
               <Divider filltext="&nbsp;/&nbsp;" />
-              <span
-                contentEditable={true}
-                id="day"
-                onClick={select}
-                className="input"
-              >
+              <span contentEditable={true} id="day" onClick={select} className="input">
                 {now.getUTCDate()}
               </span>
               <Divider filltext="&nbsp;/&nbsp;" />
-              <span
-                contentEditable={true}
-                id="year"
-                onClick={select}
-                className="input"
-              >
+              <span contentEditable={true} id="year" onClick={select} className="input">
                 {now.getUTCFullYear()}
               </span>
               <Divider filltext="&nbsp;" />
@@ -174,21 +151,11 @@ const MainBody = () => {
             <h2>
               <p className="label">at</p>
               <Divider filltext="&nbsp;" />
-              <span
-                onClick={select}
-                contentEditable={true}
-                id="hour"
-                className="input"
-              >
+              <span onClick={select} contentEditable={true} id="hour" className="input">
                 12
               </span>
               <Divider filltext=":" />
-              <span
-                onClick={select}
-                contentEditable={true}
-                id="minute"
-                className="input"
-              >
+              <span onClick={select} contentEditable={true} id="minute" className="input">
                 {(now.toLocaleString("en-US", {
                   minute: "2-digit",
                 }) < 10

@@ -19,9 +19,9 @@ const connectToDatabase = async (uri) => {
   return cachedDb;
 };
 
-const queryDatabase = async (db,id) => {
-  const timer = await db.collection("timers").findOne({_id:id});
-  console.log(timer)
+const queryDatabase = async (db, id) => {
+  const timer = await db.collection("timers").findOne({_id: id});
+  console.log(timer);
   const headers = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Headers": "Content-Type",
@@ -36,36 +36,36 @@ const queryDatabase = async (db,id) => {
 };
 
 module.exports.handler = async (event, context) => {
-   const headers = {
-     "Access-Control-Allow-Origin": "*",
-     "Access-Control-Allow-Headers": "Content-Type",
-     "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
-   };
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
+  };
   switch (event.httpMethod) {
     case "OPTIONS":
       // To enable CORS
-     
+
       return {
         statusCode: 200, // <-- Must be 200 otherwise pre-flight call fails
         headers,
         body: "This was a preflight call!",
       };
-    case "POST":
+    default:
       const data = JSON.parse(event.body);
       if (!data || !data.id) {
         console.log("data error", data);
-          return callback(null, {
-            statusCode: 400,
-            headers,
-            body: "Timer details not provided correctly",
-          });
+        // eslint-disable-next-line no-undef
+        return callback(null, {
+          statusCode: 400,
+          headers,
+          body: "Timer details not provided correctly",
+        });
       }
       context.callbackWaitsForEmptyEventLoop = false;
       const db = await connectToDatabase(MONGODB_URI);
-      console.log(data.id)
+      console.log(data.id);
       return queryDatabase(db, data.id);
-    };
+  }
   // otherwise the connection will never complete, since
   // we keep the DB connection alive
-  
 };

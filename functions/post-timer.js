@@ -1,5 +1,5 @@
 const MongoClient = require("mongodb").MongoClient;
-const { nanoid } = require("nanoid");
+const {nanoid} = require("nanoid");
 
 const MONGODB_URI = process.env.DB_URL;
 const DB_NAME = "timers";
@@ -21,10 +21,10 @@ const connectToDatabase = async (uri) => {
 };
 
 const addToDB = async (db, data) => {
-  const index = await db.collection('timers').createIndex(
-    { expires: 1 },
-    { expireAfterSeconds: 10 }
-  );
+  // eslint-disable-next-line no-unused-vars
+  const _ = await db
+    .collection("timers")
+    .createIndex({expires: 1}, {expireAfterSeconds: 10});
   const headers = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Headers": "Content-Type",
@@ -42,6 +42,7 @@ const addToDB = async (db, data) => {
 };
 
 module.exports.handler = async (event, context, callback) => {
+  // eslint-disable-next-line default-case
   switch (event.httpMethod) {
     case "OPTIONS":
       // To enable CORS
@@ -57,40 +58,37 @@ module.exports.handler = async (event, context, callback) => {
       };
     case "POST":
       const data = JSON.parse(event.body);
-        if (!data || !data.title || !data.expires) {
-          console.log("data error", data);
-          return callback(null, {
-            statusCode: 400,
-            headers,
-            body: "Timer details not provided correctly",
-          });
-        }
-        var now = new Date();
-        var date = new Date(data.expires * 1000);
-       if(date.getFullYear > now.getFullYear+10) {
-         
+      if (!data || !data.title || !data.expires) {
+        console.log("data error", data);
+        return callback(null, {
+          statusCode: 400,
+          headers,
+          body: "Timer details not provided correctly",
+        });
+      }
+      var now = new Date();
+      var date = new Date(data.expires * 1000);
+      if (date.getFullYear > now.getFullYear + 10) {
         console.log("data error", data);
         return callback(null, {
           statusCode: 400,
           headers,
           body: "Timer date > 10 years :(",
         });
-       }
-       else {
-         console.log(date.getFullYear, now.getFullYear + 10);
-       }
-  const timer = {
-    _id: nanoid(6),
-    title: data.title,
-    expires: date,
-  };
-  // otherwise the connection will never complete, since
-  // we keep the DB connection alive
-  context.callbackWaitsForEmptyEventLoop = false;
+      } else {
+        console.log(date.getFullYear, now.getFullYear + 10);
+      }
+      const timer = {
+        _id: nanoid(6),
+        title: data.title,
+        expires: date,
+      };
+      // otherwise the connection will never complete, since
+      // we keep the DB connection alive
+      context.callbackWaitsForEmptyEventLoop = false;
 
-  const db = await connectToDatabase(MONGODB_URI);
-  return addToDB(db, timer);
+      const db = await connectToDatabase(MONGODB_URI);
+      return addToDB(db, timer);
   }
   // Check for data
- 
 };
