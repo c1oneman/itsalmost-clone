@@ -14,7 +14,14 @@ const ToggleTheme = () => {
           <img src={moon} alt="toggle darkmode" className="moon-icon" />
         )}
       </span>
-      <div className="toggle__btn" onClick={toggleTheme}>
+      <div
+        className="toggle__btn"
+        onClick={toggleTheme}
+        role="checkbox"
+        aria-checked={!lightTheme}
+        onKeyPress={toggleTheme}
+        tabIndex={0}
+      >
         <input type="checkbox" checked={!lightTheme} className="checkbox" />
         <div className="circle"></div>
         <div className="layer"></div>

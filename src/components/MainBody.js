@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, {useContext, useState} from "react";
 import {useHistory} from "react-router-dom";
 import Divider from "./Divider";
@@ -68,7 +70,7 @@ const MainBody = () => {
     }
 
     // Check that title has changed
-    if (object.title === "___________") {
+    if (object.title == "___________") {
       console.log("Title is untouched.");
       setLoading(false);
       return;
