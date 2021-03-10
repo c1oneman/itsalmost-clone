@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, {useContext, useState} from "react";
 import {useHistory} from "react-router-dom";
 import Divider from "./Divider";
@@ -114,8 +112,9 @@ const MainBody = () => {
   }
 
   return (
-    <div class="row content">
-      <div className={"main-body " + theme}>
+    <div className={"container " + theme}>
+      <div className="item"></div>
+      <div className="main-body">
         <form onSubmit={handleSubmit}>
           <div className="input-row">
             <h1>
@@ -190,6 +189,7 @@ const MainBody = () => {
           </div>
         </form>
       </div>
+      <div className="item"></div>
     </div>
   );
 };

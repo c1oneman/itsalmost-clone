@@ -52,8 +52,9 @@ const Timer = () => {
       });
   }, [id]);
   return (
-    <div class="row content">
-      <div className={"main-body " + theme}>
+    <div class={"container " + theme}>
+      <div className="item"></div>
+      <div className="main-body">
         {/* <TimeDetailModule val="1" plural="days" singular="day" /> */}
         {title ? <h1>It's almost {title}</h1> : <></>}
 
@@ -105,6 +106,7 @@ const Timer = () => {
 
         {doConfetti ? <Confetti width={width} height={height}></Confetti> : <></>}
       </div>
+      <div className="item"></div>
     </div>
   );
 };
