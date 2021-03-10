@@ -208,6 +208,12 @@ form {
     align-items: center;
     justify-content: center;
     user-select: none;
+    h1 {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
     cursor: default;
     p {
       margin: 0;
