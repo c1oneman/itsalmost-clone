@@ -1,10 +1,10 @@
 import React, {useContext} from "react";
-import {ThemeContext} from "../contexts/ThemeContext";
 import TextTransition from "react-text-transition";
-
+import {useSelector} from "react-redux";
+import {selectDarkmode} from "../features/darkmode/darkmodeSlice";
 const TimeDetailModule = ({val, plural, singular, hideAt0, total, ms}) => {
-  const {lightTheme} = useContext(ThemeContext);
-  const theme = !lightTheme ? " darkmode" : "";
+  const darkmode = useSelector(selectDarkmode);
+  const theme = darkmode ? " darkmode" : "";
   return (
     <div className={"timebox" + theme}>
       {(val === 0 && hideAt0) || total === 0 ? (

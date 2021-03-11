@@ -1,11 +1,11 @@
 import React, {useContext} from "react";
 import {Link} from "react-router-dom";
 import ToggleTheme from "./ToggleTheme";
-import {ThemeContext} from "../contexts/ThemeContext";
-
+import {useSelector} from "react-redux";
+import {selectDarkmode} from "../features/darkmode/darkmodeSlice";
 const Navbar = () => {
-  const {lightTheme} = useContext(ThemeContext);
-  const theme = !lightTheme ? " darkmode" : "";
+  const darkmode = useSelector(selectDarkmode);
+  const theme = darkmode ? " darkmode" : "";
   return (
     <div className={"navbar" + theme}>
       <div>
