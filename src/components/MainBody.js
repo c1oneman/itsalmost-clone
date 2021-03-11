@@ -1,9 +1,11 @@
 import React, {useContext, useState} from "react";
 import {useHistory} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 import Divider from "./Divider";
 import TextTransition, {presets} from "react-text-transition";
 import axios from "axios";
-import {ThemeContext} from "../contexts/ThemeContext";
+import {createTimerAsync, selectTimer} from "../features/timer/timerSlice";
+import {selectDarkmode} from "../features/darkmode/darkmodeSlice";
 const func_url = process.env.REACT_APP_FUNC_URL;
 //const func_url = "http://localhost:63389/.netlify/functions";
 
@@ -15,16 +17,17 @@ const getNumber = (id) => {
 };
 
 const MainBody = () => {
-  const {lightTheme} = useContext(ThemeContext);
-  const theme = !lightTheme ? " darkmode" : "";
+  let history = useHistory();
+
+  const dispatch = useDispatch();
+  const timer = useSelector(selectTimer);
+  const darkmode = useSelector(selectDarkmode);
+  const theme = darkmode ? " darkmode" : "";
   const [isAM, setAM] = useState(true);
-  const [isLoading, setLoading] = useState(false);
   var now = new Date();
   const {push} = useHistory();
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Disable submit button
-    setLoading(true);
     // Create an object of all 'form' data
 
     const object = {
@@ -63,14 +66,12 @@ const MainBody = () => {
     // Check that date is in future
     if (future < new Date()) {
       console.log("Date is in past.");
-      setLoading(false);
       return;
     }
 
     // Check that title has changed
     if (object.title == "___________") {
       console.log("Title is untouched.");
-      setLoading(false);
       return;
     }
 
@@ -87,25 +88,7 @@ const MainBody = () => {
     console.log(unix);
     console.log(JSON.stringify(timerObject));
     // call function to create timer
-
-    var config = {
-      method: "post",
-      url: `${func_url}/post-timer`,
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: JSON.stringify(timerObject),
-    };
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-        // Redirect
-        push("/" + response.data.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    dispatch(createTimerAsync(timerObject));
   };
   function select() {
     document.execCommand("selectAll", false, null);
@@ -180,10 +163,11 @@ const MainBody = () => {
                   direction={isAM ? "down" : "up"}
                 />
               </span>
+              {timer.value != "" ? history.push(`/${timer.value}`) : ""}
             </h2>
           </div>
           <div className="input-row">
-            <button type="submit" disabled={isLoading} title="create countdown">
+            <button type="submit" disabled={timer.loading} title="create countdown">
               Create Countdown
             </button>
           </div>

@@ -6,16 +6,18 @@ import axios from "axios";
 import TimeDetailModule from "./TimeDetailModule";
 import useWindowSize from "react-use/lib/useWindowSize";
 import Confetti from "react-confetti";
+import {useSelector} from "react-redux";
+import {selectDarkmode} from "../features/darkmode/darkmodeSlice";
 const func_url = process.env.REACT_APP_FUNC_URL;
 
 //const func_url = "http://localhost:63389/.netlify/functions";
 const Timer = () => {
-  const {lightTheme} = useContext(ThemeContext);
+  const darkmode = useSelector(selectDarkmode);
   const [title, setTitle] = useState();
   const [doConfetti, toggleConfetti] = useState(false);
   const [finishTime, setFinishTime] = useState();
   const {width, height} = useWindowSize();
-  const theme = !lightTheme ? " darkmode" : "";
+  const theme = darkmode ? " darkmode" : "";
   let {id} = useParams();
 
   useEffect(() => {
@@ -61,7 +63,7 @@ const Timer = () => {
         {finishTime ? (
           <Countdown
             date={finishTime}
-            intervalDelay={100}
+            intervalDelay={25}
             precision={3}
             renderer={(data) => (
               <>
