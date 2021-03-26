@@ -28,11 +28,19 @@ const queryDatabase = async (db, id) => {
     "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
     "Content-Type": "application/json",
   };
-  return {
-    statusCode: 200,
-    headers,
-    body: JSON.stringify(timer),
-  };
+  if (timer) {
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify(timer),
+    };
+  } else {
+    return {
+      statusCode: 404,
+      headers,
+      body: JSON.stringify({message: "Timer does not exist."}),
+    };
+  }
 };
 
 module.exports.handler = async (event, context) => {
