@@ -14,6 +14,7 @@ const Timer = () => {
   const darkmode = useSelector(selectDarkmode);
   const [title, setTitle] = useState();
   const [doConfetti, toggleConfetti] = useState(false);
+  const [prefix, setPrefix] = useState("It's almost ");
   const [finishTime, setFinishTime] = useState();
   const {width, height} = useWindowSize();
   const theme = darkmode ? " darkmode" : "";
@@ -40,7 +41,7 @@ const Timer = () => {
         //set state
         setFinishTime(response.data.expires);
         setTitle(title);
-        document.title = "It's almost " + title;
+        document.title = prefix + title;
         // Easter egg
         if (title.includes("party") || title.includes("birthday")) {
           console.log(`toggle true`);
@@ -56,7 +57,13 @@ const Timer = () => {
       <div className="item"></div>
       <div className="main-body">
         {/* <TimeDetailModule val="1" plural="days" singular="day" /> */}
-        {title ? <h1>It's almost {title}</h1> : <></>}
+        {title ? (
+          <h1>
+            {prefix} {title}
+          </h1>
+        ) : (
+          <></>
+        )}
 
         {finishTime ? (
           <Countdown
@@ -66,7 +73,8 @@ const Timer = () => {
             renderer={(data) => (
               <>
                 <div className="timerarea">
-                  <p>{data.completed && "now."}</p>
+                  {data.completed ? setPrefix("It is ") : setPrefix("It's almost ")}
+
                   <TimeDetailModule
                     val={data.seconds}
                     plural="seconds"
@@ -104,7 +112,16 @@ const Timer = () => {
           <></>
         )}
 
-        {doConfetti ? <Confetti width={width} height={height}></Confetti> : <></>}
+        {doConfetti ? (
+          <Confetti
+            width={width}
+            height={height}
+            numberOfPieces={50}
+            wind={0.025}
+          ></Confetti>
+        ) : (
+          <></>
+        )}
       </div>
       <div className="item"></div>
     </div>
