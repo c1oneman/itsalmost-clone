@@ -1,6 +1,5 @@
 import React, {useContext, useState, useEffect} from "react";
 import {useParams} from "react-router-dom";
-import {ThemeContext} from "../contexts/ThemeContext";
 import Countdown from "react-countdown";
 import axios from "axios";
 import TimeDetailModule from "./TimeDetailModule";
@@ -15,6 +14,7 @@ const Timer = () => {
   const darkmode = useSelector(selectDarkmode);
   const [title, setTitle] = useState();
   const [doConfetti, toggleConfetti] = useState(false);
+  const [prefix, setPrefix] = useState("It's almost ");
   const [finishTime, setFinishTime] = useState();
   const {width, height} = useWindowSize();
   const theme = darkmode ? " darkmode" : "";
@@ -37,15 +37,14 @@ const Timer = () => {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
+        const title = response.data.title;
         //set state
         setFinishTime(response.data.expires);
-        setTitle(response.data.title);
-        document.title = "It's almost " + response.data.title;
+        setTitle(title);
+        document.title = prefix + title;
         // Easter egg
-        if (
-          response.data.lowercased.title.includes("party") ||
-          response.data.title.includes("birthday")
-        ) {
+        if (title.includes("party") || title.includes("birthday")) {
+          console.log(`toggle true`);
           toggleConfetti(true);
         }
       })
@@ -58,7 +57,13 @@ const Timer = () => {
       <div className="item"></div>
       <div className="main-body">
         {/* <TimeDetailModule val="1" plural="days" singular="day" /> */}
-        {title ? <h1>It's almost {title}</h1> : <></>}
+        {title ? (
+          <h1>
+            {prefix} {title}
+          </h1>
+        ) : (
+          <></>
+        )}
 
         {finishTime ? (
           <Countdown
@@ -68,7 +73,8 @@ const Timer = () => {
             renderer={(data) => (
               <>
                 <div className="timerarea">
-                  <p>{data.completed && "now."}</p>
+                  {data.completed ? setPrefix("It is ") : setPrefix("It's almost ")}
+
                   <TimeDetailModule
                     val={data.seconds}
                     plural="seconds"
@@ -106,7 +112,16 @@ const Timer = () => {
           <></>
         )}
 
-        {doConfetti ? <Confetti width={width} height={height}></Confetti> : <></>}
+        {doConfetti ? (
+          <Confetti
+            width={width}
+            height={height}
+            numberOfPieces={50}
+            wind={0.025}
+          ></Confetti>
+        ) : (
+          <></>
+        )}
       </div>
       <div className="item"></div>
     </div>
