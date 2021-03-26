@@ -8,7 +8,7 @@ import Confetti from "react-confetti";
 import {useSelector} from "react-redux";
 import {selectDarkmode} from "../features/darkmode/darkmodeSlice";
 import Loader from "react-loader-spinner";
-import {convertToObject} from "typescript";
+//import {convertToObject} from "typescript";
 
 const func_url = process.env.REACT_APP_FUNC_URL;
 
