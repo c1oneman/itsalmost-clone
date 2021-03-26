@@ -1,6 +1,5 @@
 import React, {useContext, useState, useEffect} from "react";
 import {useParams} from "react-router-dom";
-import {ThemeContext} from "../contexts/ThemeContext";
 import Countdown from "react-countdown";
 import axios from "axios";
 import TimeDetailModule from "./TimeDetailModule";
@@ -37,15 +36,14 @@ const Timer = () => {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
+        const title = response.data.title;
         //set state
         setFinishTime(response.data.expires);
-        setTitle(response.data.title);
-        document.title = "It's almost " + response.data.title;
+        setTitle(title);
+        document.title = "It's almost " + title;
         // Easter egg
-        if (
-          response.data.lowercased.title.includes("party") ||
-          response.data.title.includes("birthday")
-        ) {
+        if (title.includes("party") || title.includes("birthday")) {
+          console.log(`toggle true`);
           toggleConfetti(true);
         }
       })

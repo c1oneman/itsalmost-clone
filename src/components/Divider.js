@@ -1,7 +1,6 @@
 import React, {useContext} from "react";
 import {useSelector} from "react-redux";
 
-import {ThemeContext} from "../contexts/ThemeContext";
 import {selectDarkmode} from "../features/darkmode/darkmodeSlice";
 const Divider = ({filltext}) => {
   const darkmode = useSelector(selectDarkmode);
