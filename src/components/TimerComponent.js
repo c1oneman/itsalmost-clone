@@ -7,11 +7,15 @@ import useWindowSize from "react-use/lib/useWindowSize";
 import Confetti from "react-confetti";
 import {useSelector} from "react-redux";
 import {selectDarkmode} from "../features/darkmode/darkmodeSlice";
+import Loader from "react-loader-spinner";
+import {convertToObject} from "typescript";
+
 const func_url = process.env.REACT_APP_FUNC_URL;
 
 //const func_url = "http://localhost:63389/.netlify/functions";
 const Timer = () => {
   const darkmode = useSelector(selectDarkmode);
+  const [isLoading, toggleLoading] = useState(true);
   const [title, setTitle] = useState();
   const [doConfetti, toggleConfetti] = useState(false);
   const [prefix, setPrefix] = useState("It's almost ");
@@ -35,7 +39,7 @@ const Timer = () => {
     };
 
     axios(config)
-      .then(function (response) {
+      .then(async function (response) {
         console.log(JSON.stringify(response.data));
         const title = response.data.title;
         //set state
@@ -47,15 +51,28 @@ const Timer = () => {
           console.log(`toggle true`);
           toggleConfetti(true);
         }
+        toggleLoading(false);
       })
       .catch(function (error) {
-        console.log(error);
+        toggleLoading(false);
+        console.log(error.message);
       });
   }, [id]);
   return (
     <div class={"container " + theme}>
       <div className="item"></div>
       <div className="main-body">
+        {isLoading ? (
+          <Loader
+            type="ThreeDots"
+            color={theme ? "#fff" : "#000"}
+            height={100}
+            width={100}
+            timeout={3000} //3 secs
+          />
+        ) : (
+          <></>
+        )}
         {/* <TimeDetailModule val="1" plural="days" singular="day" /> */}
         {title ? (
           <h1>
