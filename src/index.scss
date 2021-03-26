@@ -305,6 +305,8 @@ button:disabled {
     font-weight: 400;
     font-size: 2rem;
   }
+  background-color: #fff;
+  
 }
 .darkmode {
   background-color: #333;
@@ -327,6 +329,12 @@ button:disabled {
     }
   }
   .divider {
+    background-color: #333;
+    -webkit-transition: background-color 50ms linear;
+    -ms-transition: background-color 50ms linear;
+    transition: background-color 50ms linear;
+  }
+  .timebox {
     background-color: #333;
     -webkit-transition: background-color 50ms linear;
     -ms-transition: background-color 50ms linear;
