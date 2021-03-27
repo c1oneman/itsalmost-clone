@@ -9,13 +9,12 @@ function App() {
     <div className="App">
       <div className="box">
         <Router>
+          <Navbar />
           <Switch>
             <Route path="/:id">
-              <Navbar />
               <Timer />
             </Route>
-            <Route path="/">
-              <Navbar />
+            <Route exact path="/">
               <MainBody />
             </Route>
           </Switch>
