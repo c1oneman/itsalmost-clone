@@ -14,6 +14,9 @@ export const timerSlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
+    clearTimer: (state, action) => {
+      state = initialState;
+    },
   },
 });
 
@@ -41,6 +44,8 @@ export const createTimerAsync = (timer) => (dispatch) => {
       dispatch(setLoading(false));
     });
 };
+
+export const clearTimer = (state) => state.timer;
 
 export const selectTimer = (state) => state.timer;
 
