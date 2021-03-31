@@ -11,10 +11,8 @@ const Navbar = () => {
   const history = useHistory();
   function handleClick(e) {
     e.preventDefault();
-    console.log("The link was clicked.");
-    const timer = "";
-    dispatch(setTimer(timer));
-    history.replace(`/`);
+    dispatch(setTimer(""));
+    history.push(`/`);
   }
   return (
     <div className={"navbar" + theme}>
@@ -27,11 +25,10 @@ const Navbar = () => {
         </h1>
         <a target="_blank" rel="noreferrer" href="https://loneman.dev">
           <p>
-            by Clayton Loneman <span className="dev">-></span>
+            by Clayton Loneman<span className="dev">.dev</span>
           </p>
         </a>
       </div>
-
       <ToggleTheme />
     </div>
   );
