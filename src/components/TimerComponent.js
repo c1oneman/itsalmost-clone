@@ -71,15 +71,9 @@ const Timer = () => {
             timeout={3000} //3 secs
           />
         ) : (
-          <></>
-        )}
-        {/* <TimeDetailModule val="1" plural="days" singular="day" /> */}
-        {title ? (
           <h1>
             {prefix} {title}
           </h1>
-        ) : (
-          <></>
         )}
 
         {finishTime ? (
@@ -133,8 +127,8 @@ const Timer = () => {
           <Confetti
             width={width}
             height={height}
-            numberOfPieces={50}
-            wind={0.025}
+            numberOfPieces={100}
+            recycle={false}
           ></Confetti>
         ) : (
           <></>
