@@ -18,7 +18,7 @@ const Timer = () => {
   const [isLoading, toggleLoading] = useState(true);
   const [title, setTitle] = useState();
   const [doConfetti, toggleConfetti] = useState(false);
-  const [prefix, setPrefix] = useState("It's almost ");
+  const [prefix, setPrefix] = useState("");
   const [finishTime, setFinishTime] = useState();
   const {width, height} = useWindowSize();
   const theme = darkmode ? " darkmode" : "";
@@ -40,6 +40,7 @@ const Timer = () => {
 
     axios(config)
       .then(async function (response) {
+        setPrefix("It's almost");
         console.log(JSON.stringify(response.data));
         const title = response.data.title;
         //set state
@@ -55,6 +56,7 @@ const Timer = () => {
       })
       .catch(function (error) {
         toggleLoading(false);
+        setTitle("404 | Not an existing timer");
         console.log(error.message);
       });
   }, [id]);
