@@ -19,26 +19,26 @@ const connectToDatabase = async (uri) => {
   return cachedDb;
 };
 
-const queryDatabase = async (db, id) => {
-  const timer = await db.collection("timers").findOne({_id: id});
-  console.log(timer);
+const queryDatabase = async (db) => {
+  const timers = await db.collection("timers").find();
+  console.log(timers);
   const headers = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Headers": "Content-Type",
     "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
     "Content-Type": "application/json",
   };
-  if (timer) {
+  if (timers) {
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify(timer),
+      body: JSON.stringify(timers),
     };
   } else {
     return {
-      statusCode: 404,
+      statusCode: 503,
       headers,
-      body: JSON.stringify({message: "Timer does not exist."}),
+      body: JSON.stringify({message: "Error finding timers in DB"}),
     };
   }
 };
@@ -59,20 +59,9 @@ module.exports.handler = async (event, context) => {
         body: "This was a preflight call!",
       };
     default:
-      const data = JSON.parse(event.body);
-      if (!data || !data.id) {
-        console.log("data error", data);
-        // eslint-disable-next-line no-undef
-        return callback(null, {
-          statusCode: 400,
-          headers,
-          body: "Timer details not provided correctly",
-        });
-      }
       context.callbackWaitsForEmptyEventLoop = false;
       const db = await connectToDatabase(MONGODB_URI);
-      console.log(data.id);
-      return queryDatabase(db, data.id);
+      return queryDatabase(db);
   }
   // otherwise the connection will never complete, since
   // we keep the DB connection alive
