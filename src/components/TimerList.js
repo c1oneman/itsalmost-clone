@@ -20,9 +20,9 @@ const Timer = () => {
     console.log(func_url);
     // Update the document title using the browser API
     var config = {
-      method: "post",
+      method: "get",
       url: `${func_url}/get-all-timers`,
-      mode: "cors",
+      mode: "no-cors",
       headers: {
         "Content-Type": "application/json",
       },
