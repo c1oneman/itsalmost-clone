@@ -56,7 +56,7 @@ const Timer = () => {
       })
       .catch(function (error) {
         toggleLoading(false);
-        setTitle("404 | Not an existing timer");
+        setTitle("404 | Countdown not found.");
         console.log(error.message);
       });
   }, [id]);

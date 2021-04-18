@@ -1,6 +1,7 @@
 import React from "react";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import MainBody from "./components/MainBody";
 import Timer from "./components/TimerComponent";
 
@@ -18,6 +19,7 @@ function App() {
               <MainBody />
             </Route>
           </Switch>
+          <Footer />
         </Router>
       </div>
     </div>
