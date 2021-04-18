@@ -21,7 +21,7 @@ const Timer = () => {
     const data = {id: "ubJUxd"};
     // Update the document title using the browser API
     var config = {
-      method: "get",
+      method: "post",
       url: `${func_url}/get-all-timers`,
       mode: "cors",
       headers: {
