@@ -18,14 +18,16 @@ const Timer = () => {
 
   useEffect(() => {
     console.log(func_url);
+    const data = {id: "ubJUxd"};
     // Update the document title using the browser API
     var config = {
       method: "get",
       url: `${func_url}/get-all-timers`,
-      mode: "no-cors",
+      mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
+      data: JSON.stringify(data),
     };
 
     axios(config)
