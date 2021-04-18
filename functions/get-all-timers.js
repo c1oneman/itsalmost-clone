@@ -19,7 +19,7 @@ const connectToDatabase = async (uri) => {
   return cachedDb;
 };
 
-const queryDatabase = async (db) => {
+const queryDatabase = async (db, id) => {
   const timer = await db.collection("timers").find();
   console.log(timer);
   const headers = {
@@ -59,9 +59,20 @@ module.exports.handler = async (event, context) => {
         body: "This was a preflight call!",
       };
     default:
+      const data = JSON.parse(event.body);
+      if (!data || !data.id) {
+        console.log("data error", data);
+        // eslint-disable-next-line no-undef
+        return callback(null, {
+          statusCode: 400,
+          headers,
+          body: "Timer details not provided correctly",
+        });
+      }
       context.callbackWaitsForEmptyEventLoop = false;
       const db = await connectToDatabase(MONGODB_URI);
-      return queryDatabase(db);
+      console.log(data.id);
+      return queryDatabase(db, data.id);
   }
   // otherwise the connection will never complete, since
   // we keep the DB connection alive
