@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import MainBody from "./components/MainBody";
 import Timer from "./components/TimerComponent";
-
+import TimerList from "./components/TimerList";
 function App() {
   return (
     <div className="App">
@@ -12,6 +12,9 @@ function App() {
         <Router>
           <Navbar />
           <Switch>
+            <Route exact path="/all">
+              <TimerList />
+            </Route>
             <Route path="/:id">
               <Timer />
             </Route>
