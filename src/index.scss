@@ -314,6 +314,22 @@ button:disabled {
   background-color: #fff;
   
 }
+
+.preview {
+  display: flex;
+  .left {
+    display: flex;
+    flex-direction: row;
+  }
+  h1 {
+    font-size:2rem;
+  }
+  h2{
+    font-size:1rem;
+  }
+  
+}
+
 .darkmode {
   background-color: #333;
   -webkit-transition: background-color 50ms linear;

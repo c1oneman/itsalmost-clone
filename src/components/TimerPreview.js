@@ -16,8 +16,11 @@ const TimerPreview = (props) => {
   // }
   return (
     <div className="preview">
-      <h2>{props.timer.title}</h2>
-      <p>{props.timer.id}</p>
+      <div>
+        <h2>{props.timer.title}</h2>
+        <p>{props.timer.id}</p>
+      </div>
+
       <Countdown
         date={props.timer.expires}
         intervalDelay={1000}
