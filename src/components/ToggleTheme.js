@@ -19,7 +19,7 @@ const ToggleTheme = () => {
   return (
     <div className="toggle__box">
       <span>
-        {darkmode ? (
+        {!darkmode ? (
           <img src={sun} alt="toggle darkmode" className="sun-icon" />
         ) : (
           <img src={moon} alt="toggle darkmode" className="moon-icon" />

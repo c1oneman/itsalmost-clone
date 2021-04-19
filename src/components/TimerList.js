@@ -3,36 +3,32 @@ import {useParams} from "react-router-dom";
 import Countdown from "react-countdown";
 import axios from "axios";
 import TimeDetailModule from "./TimeDetailModule";
-import useWindowSize from "react-use/lib/useWindowSize";
-import Confetti from "react-confetti";
 import {useSelector} from "react-redux";
 import {selectDarkmode} from "../features/darkmode/darkmodeSlice";
 import Loader from "react-loader-spinner";
+import TimerPreview from "./TimerPreview";
+const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
-const func_url = process.env.REACT_APP_FUNC_URL;
-
-const Timer = () => {
+const TimerList = () => {
   const darkmode = useSelector(selectDarkmode);
   const [isLoading, toggleLoading] = useState(true);
   const theme = darkmode ? " darkmode" : "";
-
+  const [timers, setTimers] = useState([]);
   useEffect(() => {
-    console.log(func_url);
-    const data = {id: "ubJUxd"};
-    // Update the document title using the browser API
+    console.log("Grabbing ALL timers");
     var config = {
-      method: "post",
-      url: `${func_url}/get-all-timers`,
+      method: "get",
+      url: `${API_ENDPOINT}/api/timers`,
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
-      data: JSON.stringify(data),
     };
 
     axios(config)
       .then(async function (response) {
         console.log(JSON.stringify(response.data));
+        setTimers(response.data);
         toggleLoading(false);
       })
       .catch(function (error) {
@@ -44,11 +40,13 @@ const Timer = () => {
     <div class={"container " + theme}>
       <div className="item"></div>
       <div className="main-body">
-        <h4>List all timers function | WIP</h4>
+        {timers.map((timer) => {
+          return <TimerPreview timer={timer} />;
+        })}
       </div>
       <div className="item"></div>
     </div>
   );
 };
 
-export default Timer;
+export default TimerList;
