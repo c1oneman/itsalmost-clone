@@ -6,8 +6,7 @@ import TextTransition, {presets} from "react-text-transition";
 import axios from "axios";
 import {createTimerAsync, selectTimer} from "../features/timer/timerSlice";
 import {selectDarkmode} from "../features/darkmode/darkmodeSlice";
-const func_url = process.env.REACT_APP_FUNC_URL;
-//const func_url = "http://localhost:63389/.netlify/functions";
+const endpoint = process.env.API_ENDPOINT;
 
 const getContent = (id) => {
   return document.getElementById(id).textContent;
@@ -76,7 +75,7 @@ const MainBody = () => {
     }
 
     // Get unix time from future date
-    const unix = future.getTime() / 1000;
+    const unix = future.getTime();
     // create object for api call
     const timerObject = {
       title: object.title,

@@ -10,9 +10,8 @@ import {selectDarkmode} from "../features/darkmode/darkmodeSlice";
 import Loader from "react-loader-spinner";
 //import {convertToObject} from "typescript";
 
-const func_url = process.env.REACT_APP_FUNC_URL;
+const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
-//const func_url = "http://localhost:63389/.netlify/functions";
 const Timer = () => {
   const darkmode = useSelector(selectDarkmode);
   const [isLoading, toggleLoading] = useState(true);
@@ -25,26 +24,24 @@ const Timer = () => {
   let {id} = useParams();
 
   useEffect(() => {
-    console.log(func_url);
     // Update the document title using the browser API
-    const data = {id: id};
     var config = {
-      method: "post",
-      url: `${func_url}/get-timer`,
+      method: "get",
+      url: `${API_ENDPOINT}/api/timers/${id}`,
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
-      data: JSON.stringify(data),
     };
-
+    console.log(config.url);
     axios(config)
       .then(async function (response) {
         setPrefix("It's almost");
-        console.log(JSON.stringify(response.data));
-        const title = response.data.title;
+        const result = response.data;
+        console.log(JSON.stringify(result));
+        const title = result.title;
         //set state
-        setFinishTime(response.data.expires);
+        setFinishTime(result.expires);
         setTitle(title);
         document.title = prefix + title;
         // Easter egg
