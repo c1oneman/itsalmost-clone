@@ -41,6 +41,14 @@ export const Card = styled.div`
       background-color: #2d2d2d;
     }
   }
+  .darkmodeCard {
+    h1 {
+      color: black;
+    }
+    h2 {
+      color: black;
+    }
+  }
   @media (max-width: 680px) {
     width: 100%;
     min-width: 0;

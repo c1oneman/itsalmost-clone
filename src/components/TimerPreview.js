@@ -9,7 +9,7 @@ import TimeSimpleModule from "./TimeSimpleModule";
 import {Card} from "../styled-components/preview-card";
 const TimerPreview = (props) => {
   const darkmode = useSelector(selectDarkmode);
-  const theme = darkmode ? " darkmode" : "";
+  const theme = darkmode ? "darkmodeCard" : "";
   // function handleClick(e) {
   //   e.preventDefault();
   //   dispatch(setTimer(""));

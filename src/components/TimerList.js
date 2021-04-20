@@ -1,11 +1,13 @@
 import React, {useContext, useState, useEffect} from "react";
 import {useParams} from "react-router-dom";
+import {useSelector} from "react-redux";
 import Countdown from "react-countdown";
+import Loader from "react-loader-spinner";
 import axios from "axios";
 import TimeDetailModule from "./TimeDetailModule";
-import {useSelector} from "react-redux";
+
 import {selectDarkmode} from "../features/darkmode/darkmodeSlice";
-import Loader from "react-loader-spinner";
+
 import TimerPreview from "./TimerPreview";
 import {Pager} from "../styled-components/page-chooser";
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
@@ -28,7 +30,6 @@ const TimerList = () => {
 
     axios(config)
       .then(async function (response) {
-        console.log(JSON.stringify(response.data));
         setTimers(response.data);
         toggleLoading(false);
       })
@@ -41,15 +42,33 @@ const TimerList = () => {
     <div class={"container " + theme}>
       <div className="item"></div>
       <div className="main-body">
-        {timers.map((timer) => {
-          return <TimerPreview timer={timer} />;
-        })}
+        <div>
+          <h1>Browse</h1>
+          <p>User made timers.</p>
+        </div>
+        {isLoading && (
+          <Loader
+            type="ThreeDots"
+            color={theme ? "#fff" : "#000"}
+            height={100}
+            width={100}
+            timeout={3000} //3 secs
+          />
+        )}
+        <div className="card-holder">
+          {timers.map((timer) => {
+            return <TimerPreview timer={timer} />;
+          })}
+        </div>
       </div>
-      <Pager>
-        {page > 1 && <p onClick={(e) => setPage(page - 1)}>-</p>}
-        <p>Page {page}</p>
-        <p onClick={(e) => setPage(page + 1)}>+</p>
-      </Pager>
+      {!isLoading && (
+        <Pager>
+          {page > 1 && <p onClick={(e) => setPage(page - 1)}>-</p>}
+          <p>Page {page}</p>
+          <p onClick={(e) => setPage(page + 1)}>+</p>
+        </Pager>
+      )}
+
       <div className="item"></div>
     </div>
   );
