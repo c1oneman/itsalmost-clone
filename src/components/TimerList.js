@@ -13,12 +13,13 @@ const TimerList = () => {
   const darkmode = useSelector(selectDarkmode);
   const [isLoading, toggleLoading] = useState(true);
   const theme = darkmode ? " darkmode" : "";
+  const [page, setPage] = useState(2);
   const [timers, setTimers] = useState([]);
   useEffect(() => {
     console.log("Grabbing ALL timers");
     var config = {
       method: "get",
-      url: `${API_ENDPOINT}/api/timers`,
+      url: `${API_ENDPOINT}/api/timers/list/${page}`,
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +36,7 @@ const TimerList = () => {
         toggleLoading(false);
         console.log(error.message);
       });
-  }, []);
+  }, [page]);
   return (
     <div class={"container " + theme}>
       <div className="item"></div>
@@ -43,6 +44,11 @@ const TimerList = () => {
         {timers.map((timer) => {
           return <TimerPreview timer={timer} />;
         })}
+      </div>
+      <div className="page-selector">
+        <p onClick={(e) => setPage(page - 1)}>-</p>
+        <p>Page {page}</p>
+        <p onClick={(e) => setPage(page + 1)}>+</p>
       </div>
       <div className="item"></div>
     </div>
