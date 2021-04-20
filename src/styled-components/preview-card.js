@@ -35,6 +35,10 @@ export const Card = styled.div`
       border-radius: 25px;
       padding: 3px 15px;
       color: white;
+      user-select: all;
+    }
+    .bubble:hover {
+      background-color: #2d2d2d;
     }
   }
   @media (max-width: 680px) {

@@ -7,6 +7,7 @@ import {useSelector} from "react-redux";
 import {selectDarkmode} from "../features/darkmode/darkmodeSlice";
 import Loader from "react-loader-spinner";
 import TimerPreview from "./TimerPreview";
+import {Pager} from "../styled-components/page-chooser";
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
 const TimerList = () => {
@@ -44,11 +45,11 @@ const TimerList = () => {
           return <TimerPreview timer={timer} />;
         })}
       </div>
-      <div className="page-selector">
+      <Pager>
         {page > 1 && <p onClick={(e) => setPage(page - 1)}>-</p>}
         <p>Page {page}</p>
         <p onClick={(e) => setPage(page + 1)}>+</p>
-      </div>
+      </Pager>
       <div className="item"></div>
     </div>
   );
