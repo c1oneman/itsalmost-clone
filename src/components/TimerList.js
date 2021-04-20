@@ -13,7 +13,7 @@ const TimerList = () => {
   const darkmode = useSelector(selectDarkmode);
   const [isLoading, toggleLoading] = useState(true);
   const theme = darkmode ? " darkmode" : "";
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(1);
   const [timers, setTimers] = useState([]);
   useEffect(() => {
     console.log("Grabbing ALL timers");
