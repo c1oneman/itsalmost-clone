@@ -12,7 +12,7 @@ function App() {
         <Router>
           <Navbar />
           <Switch>
-            <Route exact path="/all">
+            <Route exact path="/browse">
               <TimerList />
             </Route>
             <Route path="/:id">
