@@ -181,6 +181,9 @@ a {
   align-items: center;
   text-align: center;
   flex-wrap: wrap;
+  align-self: center;
+  width: 80%;
+  
   h1 {
     font-size: 4rem;
     margin: 0;
@@ -243,7 +246,6 @@ form {
     }
   }
 }
-
 h1 {
   display: flex;
   align-items: flex-start;
@@ -320,8 +322,8 @@ button:disabled {
 }
 
 .preview {
-  width: 30%;
-  max-width: 450px;
+  min-width: 40%;
+  max-width: 100%;
   display: flex;
   padding:8px;
   margin: 12px;
@@ -351,7 +353,14 @@ button:disabled {
     flex-direction: column;
     align-items: flex-end;
     justify-content: space-between;
+    .bubble {
+      background-color:#8a8a8a;
+      border-radius: 25px;
+      padding: 3px 15px;
+      color: white;
+    }
   }
+  
 }
 
 .darkmode {

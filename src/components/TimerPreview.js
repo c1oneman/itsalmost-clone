@@ -21,7 +21,10 @@ const TimerPreview = (props) => {
         <h1>{props.timer.title}</h1>
       </div>
       <div className="right">
-        <p>{props.timer.id}</p>
+        <div className="bubble">
+          <p>{props.timer.id}</p>
+        </div>
+
         <Countdown
           date={props.timer.expires}
           intervalDelay={3000}
