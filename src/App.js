@@ -22,7 +22,6 @@ function App() {
               <MainBody />
             </Route>
           </Switch>
-          <Footer />
         </Router>
       </div>
     </div>

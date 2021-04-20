@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {Link, useHistory} from "react-router-dom";
+import {Link} from "react-router-dom";
 import ToggleTheme from "./ToggleTheme";
 import {useDispatch, useSelector} from "react-redux";
 import {selectDarkmode} from "../features/darkmode/darkmodeSlice";
@@ -9,7 +9,10 @@ const Navbar = () => {
   return (
     <div className={"navbar" + theme}>
       <div className={"footer"}>
-        <p>Made with ❤ in Nebraska</p>
+        <p>Made with ❤ in Nebraska | </p>
+        <p>
+          <Link to="/browse">Browse</Link>
+        </p>
       </div>
     </div>
   );

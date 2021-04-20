@@ -6,6 +6,7 @@ import {setTimer} from "../features/timer/timerSlice";
 import {selectDarkmode} from "../features/darkmode/darkmodeSlice";
 import Countdown from "react-countdown";
 import TimeSimpleModule from "./TimeSimpleModule";
+import {Card} from "../styled-components/preview-card";
 const TimerPreview = (props) => {
   const darkmode = useSelector(selectDarkmode);
   const theme = darkmode ? " darkmode" : "";
@@ -15,7 +16,7 @@ const TimerPreview = (props) => {
   //   history.push(`/`);
   // }
   return (
-    <div className="preview">
+    <Card>
       <div className="left">
         <h2>It's almost..</h2>
         <h1>{props.timer.title}</h1>
@@ -38,7 +39,7 @@ const TimerPreview = (props) => {
           )}
         />
       </div>
-    </div>
+    </Card>
   );
 };
 
