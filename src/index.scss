@@ -177,11 +177,10 @@ a {
 
 .main-body {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-
+  flex-wrap: wrap;
   h1 {
     font-size: 4rem;
     margin: 0;
@@ -311,23 +310,48 @@ button:disabled {
     font-weight: 400;
     font-size: 2rem;
   }
-  background-color: #fff;
+  
   
 }
 
-.preview {
+
+.flex {
   display: flex;
-  .left {
-    display: flex;
-    flex-direction: row;
+}
+
+.preview {
+  width: 30%;
+  max-width: 450px;
+  display: flex;
+  padding:8px;
+  margin: 12px;
+  background-color: #ddd;
+  border-radius: 5px;
+  
+  .timebox {
+    margin: 0;
+    margin-left: 5px;
   }
   h1 {
     font-size:2rem;
+    font-weight: 400;
   }
   h2{
     font-size:1rem;
   }
-  
+  p {
+    margin: 0;
+  }
+  .left {
+  width: 70%;
+  }
+  .right {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
 }
 
 .darkmode {
