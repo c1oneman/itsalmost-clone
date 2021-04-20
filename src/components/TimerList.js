@@ -16,7 +16,6 @@ const TimerList = () => {
   const [page, setPage] = useState(1);
   const [timers, setTimers] = useState([]);
   useEffect(() => {
-    console.log("Grabbing ALL timers");
     var config = {
       method: "get",
       url: `${API_ENDPOINT}/api/timers/list/${page}`,
@@ -46,7 +45,7 @@ const TimerList = () => {
         })}
       </div>
       <div className="page-selector">
-        <p onClick={(e) => setPage(page - 1)}>-</p>
+        {page > 1 && <p onClick={(e) => setPage(page - 1)}>-</p>}
         <p>Page {page}</p>
         <p onClick={(e) => setPage(page + 1)}>+</p>
       </div>
