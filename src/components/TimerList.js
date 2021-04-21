@@ -1,5 +1,5 @@
 import React, {useContext, useState, useEffect} from "react";
-import {useParams} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import {useSelector} from "react-redux";
 import Countdown from "react-countdown";
 import Loader from "react-loader-spinner";
@@ -18,6 +18,7 @@ const TimerList = () => {
   const theme = darkmode ? " darkmode" : "";
   const [page, setPage] = useState(1);
   const [timers, setTimers] = useState([]);
+
   useEffect(() => {
     var config = {
       method: "get",
@@ -45,16 +46,17 @@ const TimerList = () => {
         <div>
           <h1>Browse</h1>
           <p>User made timers.</p>
+          {isLoading && (
+            <Loader
+              type="ThreeDots"
+              color={theme ? "#fff" : "#000"}
+              height={100}
+              width={100}
+              timeout={3000} //3 secs
+            />
+          )}
         </div>
-        {isLoading && (
-          <Loader
-            type="ThreeDots"
-            color={theme ? "#fff" : "#000"}
-            height={100}
-            width={100}
-            timeout={3000} //3 secs
-          />
-        )}
+
         <div className="card-holder">
           {timers.map((timer) => {
             return <TimerPreview timer={timer} />;

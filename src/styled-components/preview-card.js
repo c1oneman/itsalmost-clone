@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Card = styled.div`
   width: 45%;
+  max-width: 450px;
   display: flex;
   padding: 8px;
   margin: 12px;
@@ -35,7 +36,7 @@ export const Card = styled.div`
       border-radius: 25px;
       padding: 3px 15px;
       color: white;
-      user-select: all;
+      user-select: none;
     }
     .bubble:hover {
       background-color: #2d2d2d;

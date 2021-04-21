@@ -17,6 +17,7 @@ const getNumber = (id) => {
 
 const MainBody = () => {
   let history = useHistory();
+  const {push} = useHistory();
 
   const dispatch = useDispatch();
   const timer = useSelector(selectTimer);
@@ -24,7 +25,7 @@ const MainBody = () => {
   const theme = darkmode ? " darkmode" : "";
   const [isAM, setAM] = useState(true);
   var now = new Date();
-  const {push} = useHistory();
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Create an object of all 'form' data

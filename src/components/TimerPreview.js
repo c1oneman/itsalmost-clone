@@ -7,6 +7,7 @@ import {selectDarkmode} from "../features/darkmode/darkmodeSlice";
 import Countdown from "react-countdown";
 import TimeSimpleModule from "./TimeSimpleModule";
 import {Card} from "../styled-components/preview-card";
+
 const TimerPreview = (props) => {
   const darkmode = useSelector(selectDarkmode);
   const theme = darkmode ? "darkmodeCard" : "";
@@ -22,10 +23,11 @@ const TimerPreview = (props) => {
         <h1>{props.timer.title}</h1>
       </div>
       <div className="right">
-        <div className="bubble">
-          <p>{props.timer.id}</p>
-        </div>
-
+        <Link to={props.timer.id}>
+          <div className="bubble">
+            <p>{props.timer.id}</p>
+          </div>
+        </Link>
         <Countdown
           date={props.timer.expires}
           intervalDelay={3000}
