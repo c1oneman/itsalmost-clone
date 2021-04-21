@@ -10,6 +10,7 @@ import {selectDarkmode} from "../features/darkmode/darkmodeSlice";
 
 import TimerPreview from "./TimerPreview";
 import {Pager} from "../styled-components/page-chooser";
+import {setLoading} from "../features/timer/timerSlice";
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
 const TimerList = () => {
@@ -20,6 +21,7 @@ const TimerList = () => {
   const [timers, setTimers] = useState([]);
 
   useEffect(() => {
+    toggleLoading(true);
     var config = {
       method: "get",
       url: `${API_ENDPOINT}/api/timers/list/${page}`,
