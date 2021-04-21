@@ -9,9 +9,11 @@ const Navbar = () => {
   return (
     <div className={"navbar" + theme}>
       <div className={"footer"}>
-        <p>Made with ❤ in Nebraska | </p>
         <p>
-          <Link to="/browse">Browse</Link>
+          Made with <span className="heart">❤</span> in Nebraska |{" "}
+        </p>
+        <p>
+          <Link to="/browse">Browse timers</Link>
         </p>
       </div>
     </div>

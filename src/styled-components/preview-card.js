@@ -31,25 +31,18 @@ export const Card = styled.div`
     flex-direction: column;
     align-items: flex-end;
     justify-content: space-between;
-    .bubble {
-      background-color: #8a8a8a;
-      border-radius: 25px;
-      padding: 3px 15px;
-      color: white;
-      user-select: none;
-    }
-    .bubble:hover {
-      background-color: #2d2d2d;
-    }
   }
-  .darkmodeCard {
-    h1 {
-      color: black;
-    }
-    h2 {
-      color: black;
-    }
+  .bubble {
+    background-color: #8a8a8a;
+    border-radius: 25px;
+    padding: 3px 15px;
+    color: white;
+    user-select: none;
   }
+  .bubble:hover {
+    background-color: #2d2d2d;
+  }
+
   @media (max-width: 680px) {
     width: 100%;
     min-width: 0;
