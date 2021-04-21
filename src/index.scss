@@ -195,6 +195,16 @@ a {
     flex-direction: row;
     align-items: center;
   }
+  @media (max-width: 680px) {
+    h1 {
+      font-size: 2rem;
+    }
+    h2 {
+      font-size: 1em;
+      margin: 0;
+      
+    }
+  }
 }
 .card-holder {
   display:flex;
@@ -321,7 +331,22 @@ button:disabled {
     font-weight: 400;
     font-size: 2rem;
   }
-  
+  @media (max-width: 680px) {
+    margin:5px;
+    h1 {
+      font-size: 2rem;
+      
+    }
+    h2 {
+      font-size: 1em;
+      margin: 0;
+      
+    }
+    p {
+      
+      font-size: 0.5em;
+    }
+  }
   
 }
 
