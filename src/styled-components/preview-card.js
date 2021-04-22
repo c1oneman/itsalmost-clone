@@ -6,11 +6,17 @@ export const Card = styled.div`
   display: flex;
   padding: 8px;
   margin: 12px;
-  background-color: #ddd;
-  border-radius: 5px;
+  background-color: #ececec;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
+    0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
+    0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
+  border: 2px solid #8f8f8f;
   .timebox {
     margin: 0;
     margin-left: 5px;
+    p {
+      font-size: 1em;
+    }
   }
   h1 {
     font-size: 2rem;
@@ -31,6 +37,8 @@ export const Card = styled.div`
     flex-direction: column;
     align-items: flex-end;
     justify-content: space-between;
+  }
+  .shadow-4 {
   }
   .bubble {
     background-color: #8a8a8a;

@@ -67,9 +67,15 @@ const TimerList = () => {
       </div>
       {!isLoading && (
         <Pager>
-          {page > 1 && <p onClick={(e) => setPage(page - 1)}>-</p>}
+          {page > 1 && (
+            <p onClick={(e) => setPage(page - 1)} className="btn">
+              -
+            </p>
+          )}
           <p>Page {page}</p>
-          <p onClick={(e) => setPage(page + 1)}>+</p>
+          <p className="btn" onClick={(e) => setPage(page + 1)}>
+            +
+          </p>
         </Pager>
       )}
 

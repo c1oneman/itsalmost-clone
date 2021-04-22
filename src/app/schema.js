@@ -30,6 +30,6 @@ export const TimerFormSchema = Yup.object().shape({
     .required("Hour is required")
     .min(1, "Hour is not valid (H:MM format)")
     .max(2, "Hour is not valid (H:MM format)")
-    .matches(/^\d+$/, "Hour is not a number"),
+    .matches(/^0[1-9]|1[0-2]$/, "Hour is not a number"),
   am: Yup.boolean().required("AM/PM is required"),
 });
