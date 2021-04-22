@@ -4,8 +4,11 @@ import {useDispatch, useSelector} from "react-redux";
 import Divider from "./Divider";
 import TextTransition, {presets} from "react-text-transition";
 import axios from "axios";
+import * as Yup from "yup";
 import {createTimerAsync, selectTimer} from "../features/timer/timerSlice";
 import {selectDarkmode} from "../features/darkmode/darkmodeSlice";
+import {TimerFormSchema} from "../app/schema";
+import Error from "../styled-components/error-box";
 const endpoint = process.env.API_ENDPOINT;
 
 const getContent = (id) => {
@@ -24,13 +27,14 @@ const MainBody = () => {
   const darkmode = useSelector(selectDarkmode);
   const theme = darkmode ? " darkmode" : "";
   const [isAM, setAM] = useState(true);
+  const [errors, setErrors] = useState([]);
   var now = new Date();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Create an object of all 'form' data
 
-    const object = {
+    const newTimer = {
       title: getContent("title"),
       day: getNumber("day"),
       month: getNumber("month"),
@@ -39,28 +43,30 @@ const MainBody = () => {
       minute: getNumber("minute"),
       am: isAM,
     };
+    TimerFormSchema.validate(newTimer)
+      .then(function (result) {
+        console.log("Valid?: ", result); // => true
+      })
+      .catch(function (err) {
+        setErrors(err.errors);
+        return;
+      });
     // Check if user defined PM, add 12 hours if true (24 hour time)
-    if (!object.am) {
-      if (object.hour === 12) {
-        object.hour = 12;
-      } else {
-        object.hour = object.hour + 12;
+    if (!newTimer.am) {
+      if (newTimer.hour !== 12) {
+        newTimer.hour = newTimer.hour + 12;
       }
-    } else {
-      if (object.hour === 12) {
-        object.hour = "0";
-      }
+    } else if (newTimer.hour === 12) {
+      newTimer.hour = 0;
     }
 
     // Create future date object to get expire time from
     const future = new Date(
-      object.year,
-      object.month - 1,
-      object.day,
-      object.hour,
-      object.minute,
-      0,
-      0
+      newTimer.year,
+      newTimer.month - 1,
+      newTimer.day,
+      newTimer.hour,
+      newTimer.minute
     );
 
     // Check that date is in future
@@ -70,7 +76,7 @@ const MainBody = () => {
     }
 
     // Check that title has changed
-    if (object.title == "___________") {
+    if (newTimer.title == "___________") {
       console.log("Title is untouched.");
       return;
     }
@@ -79,17 +85,20 @@ const MainBody = () => {
     const unix = future.getTime();
     // create object for api call
     const timerObject = {
-      title: object.title,
+      title: newTimer.title,
       expires: unix,
     };
 
     // Output data for API
-    console.log(object.title);
-    console.log(unix);
-    console.log(JSON.stringify(timerObject));
-    // call function to create timer
+    // console.log(object.title);
+    // console.log(unix);
+    // console.log(JSON.stringify(timerObject));
+
+    // create timer
     dispatch(createTimerAsync(timerObject));
   };
+
+  // Used to highlight spans when clicked on
   function select() {
     document.execCommand("selectAll", false, null);
   }
@@ -140,14 +149,7 @@ const MainBody = () => {
               </span>
               <Divider filltext=":" />
               <span onClick={select} contentEditable={true} id="minute" className="input">
-                {(now.toLocaleString("en-US", {
-                  minute: "2-digit",
-                }) < 10
-                  ? "0"
-                  : "") +
-                  now.toLocaleString("en-US", {
-                    minute: "2-digit",
-                  })}
+                00
               </span>
               <Divider filltext="&nbsp;" />
 
@@ -171,6 +173,7 @@ const MainBody = () => {
               Create Countdown
             </button>
           </div>
+          {errors.length > 0 && <Error>{errors}</Error>}
         </form>
       </div>
       <div className="item"></div>
