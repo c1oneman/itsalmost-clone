@@ -35,7 +35,7 @@ const Timer = () => {
     };
     console.log(config.url);
     axios(config)
-      .then(async function (response) {
+      .then(function (response) {
         setPrefix("It's almost");
         const result = response.data;
         console.log(JSON.stringify(result));
