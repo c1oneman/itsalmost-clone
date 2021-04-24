@@ -63,7 +63,7 @@ const Timer = () => {
       <div className="main-body">
         {isLoading ? (
           <Loader
-            type="ThreeDots"
+            type="TailSpin"
             color={theme ? "#fff" : "#000"}
             height={100}
             width={100}
