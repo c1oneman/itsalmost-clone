@@ -18,7 +18,7 @@ const getNumber = (id) => {
   return parseInt(document.getElementById(id).textContent);
 };
 
-const MainBody = () => {
+const FormBody = () => {
   let history = useHistory();
   const {push} = useHistory();
 
@@ -181,4 +181,4 @@ const MainBody = () => {
   );
 };
 
-export default MainBody;
+export default FormBody;

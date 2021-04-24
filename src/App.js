@@ -2,7 +2,7 @@ import React from "react";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import MainBody from "./components/MainBody";
+import FormBody from "./components/FormBody";
 import Timer from "./components/TimerComponent";
 import TimerList from "./components/TimerList";
 function App() {
@@ -19,7 +19,7 @@ function App() {
             <Timer />
           </Route>
           <Route exact path="/">
-            <MainBody />
+            <FormBody />
           </Route>
         </Switch>
 
