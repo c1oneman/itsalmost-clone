@@ -6,9 +6,11 @@ export const Card = styled.div`
   display: flex;
   padding: 8px;
   margin: 12px;
-  background-color: #fafafa;
+  /* background-color: #f0f0f0; */
+
   border: 2px solid #8f8f8f;
   border-radius: 5px;
+  color: black;
   .timebox {
     margin: 0;
     margin-left: 5px;

@@ -10,7 +10,7 @@ import {Card} from "../styled-components/preview-card";
 
 const TimerPreview = (props) => {
   const darkmode = useSelector(selectDarkmode);
-  const theme = darkmode ? "darkmodeCard" : "";
+  const theme = darkmode ? "darkmode" : "";
   // function handleClick(e) {
   //   e.preventDefault();
   //   dispatch(setTimer(""));
@@ -18,11 +18,11 @@ const TimerPreview = (props) => {
   // }
   return (
     <Card>
-      <div className="left">
+      <div className={"left "}>
         <h2>It's almost..</h2>
         <h1>{props.timer.title}</h1>
       </div>
-      <div className="right">
+      <div className={"right "}>
         <Link to={props.timer.id}>
           <div className="bubble">
             <p>{props.timer.id}</p>

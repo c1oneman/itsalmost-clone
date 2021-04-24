@@ -60,7 +60,7 @@ const TimerList = () => {
 
         <div className="card-holder">
           {timers.map((timer) => {
-            return <TimerPreview timer={timer} />;
+            return <TimerPreview className={theme} timer={timer} />;
           })}
         </div>
       </div>
