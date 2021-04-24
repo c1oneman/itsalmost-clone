@@ -7,7 +7,7 @@ const Navbar = () => {
   const darkmode = useSelector(selectDarkmode);
   const theme = darkmode ? " darkmode" : "";
   return (
-    <div className={"footer"}>
+    <div className={"footer " + theme}>
       <p>
         Made with <span className="heart">❤</span> in Nebraska |{" "}
       </p>

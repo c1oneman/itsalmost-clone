@@ -219,9 +219,10 @@ a {
   color: #e25555;
 }
 .footer {
-  width: 100%;
   display: flex;
   flex-shrink: 1;
+  padding-left: 12px;
+  padding-bottom: 2px;
   p {
     padding: 4px;
   }
