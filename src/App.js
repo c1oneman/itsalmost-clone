@@ -8,23 +8,23 @@ import TimerList from "./components/TimerList";
 function App() {
   return (
     <div className="App">
-      <div className="box">
-        <Router>
-          <Navbar />
-          <Switch>
-            <Route exact path="/browse">
-              <TimerList />
-            </Route>
-            <Route path="/:id">
-              <Timer />
-            </Route>
-            <Route exact path="/">
-              <MainBody />
-            </Route>
-          </Switch>
-          <Footer />
-        </Router>
-      </div>
+      <Router>
+        <Navbar />
+
+        <Switch>
+          <Route exact path="/browse">
+            <TimerList />
+          </Route>
+          <Route path="/:id">
+            <Timer />
+          </Route>
+          <Route exact path="/">
+            <MainBody />
+          </Route>
+        </Switch>
+
+        <Footer />
+      </Router>
     </div>
   );
 }

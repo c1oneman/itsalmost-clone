@@ -42,7 +42,7 @@ const TimerList = () => {
       });
   }, [page]);
   return (
-    <div class={"container " + theme}>
+    <div class={"container" + theme}>
       <div className="item"></div>
       <div className="main-body">
         <div>
