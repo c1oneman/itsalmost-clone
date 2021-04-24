@@ -19,6 +19,8 @@ export const Pager = styled.div`
   .center {
     background-color: #3458fc;
     padding: 5px 10px;
+    border-right: 1px solid #acacac;
+    border-left: 1px solid #acacac;
   }
   .back {
     border-radius: 25px 0 0 25px;
