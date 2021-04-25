@@ -30,4 +30,7 @@ export const Pager = styled.div`
   .back:hover {
     background-color: #6782ff;
   }
+  .button {
+    cursor: pointer;
+  }
 `;

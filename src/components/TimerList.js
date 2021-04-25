@@ -18,6 +18,8 @@ const TimerList = () => {
   const [isLoading, toggleLoading] = useState(true);
   const theme = darkmode ? " darkmode" : "";
   const [page, setPage] = useState(1);
+  const [pageMax, setPageMax] = useState(1);
+  const [total, setTotal] = useState(0);
   const [timers, setTimers] = useState([]);
 
   useEffect(() => {
@@ -33,7 +35,9 @@ const TimerList = () => {
 
     axios(config)
       .then(async function (response) {
-        setTimers(response.data);
+        setTimers(response.data.data);
+        setPageMax(response.data.maxPages);
+        setTotal(response.data.total);
         toggleLoading(false);
       })
       .catch(function (error) {
@@ -46,15 +50,10 @@ const TimerList = () => {
       <div className="item"></div>
       <div className="main-body">
         <div>
-          <h1>Browse</h1>
-          <p>User made timers.</p>
-          {isLoading && (
-            <Loader
-              type="TailSpin"
-              color={theme ? "#fff" : "#000"}
-              height={100}
-              width={100}
-            />
+          <h1>Browse Timers</h1>
+          {isLoading && <p>One moment..</p>}
+          {!isLoading && (
+            <p>User made timers. {total > 0 && `${total} timers exist globally.`}</p>
           )}
         </div>
 
@@ -63,19 +62,31 @@ const TimerList = () => {
             return <TimerPreview className={theme} timer={timer} />;
           })}
         </div>
+        {isLoading && (
+          <Loader
+            type="TailSpin"
+            color={theme ? "#fff" : "#000"}
+            height={50}
+            width={50}
+          />
+        )}
       </div>
 
-      <Pager>
-        {page > 1 && (
-          <div className="back">
-            <p onClick={(e) => setPage(page - 1)}>Back</p>
-          </div>
-        )}
-        <p className="center">{page}</p>
-        <div className="next">
-          <p onClick={(e) => setPage(page + 1)}>Next</p>
-        </div>
-      </Pager>
+      {!isLoading && (
+        <Pager>
+          {page > 1 && (
+            <div className="back button" onClick={(e) => setPage(page - 1)}>
+              <p>Back</p>
+            </div>
+          )}
+          <p className="center">{page}</p>
+          {page < pageMax && (
+            <div className="next button" onClick={(e) => setPage(page + 1)}>
+              <p>Next</p>
+            </div>
+          )}
+        </Pager>
+      )}
 
       <div className="item"></div>
     </div>
