@@ -49,8 +49,8 @@ const TimerList = () => {
     <div class={"container" + theme}>
       <div className="item"></div>
       <div className="main-body">
-        <div>
-          <h1>Browse Timers</h1>
+        <div className="center">
+          <h2>Browse Timers</h2>
           {isLoading && <p>One moment..</p>}
           {!isLoading && (
             <p>User made timers. {total > 0 && `${total} timers exist globally.`}</p>

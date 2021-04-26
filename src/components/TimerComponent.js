@@ -43,7 +43,7 @@ const Timer = () => {
         //set state
         setFinishTime(result.expires);
         setTitle(title);
-        document.title = prefix + title;
+        document.title = "It's almost " + title;
         // Easter egg
         if (title.includes("party") || title.includes("birthday")) {
           console.log(`toggle true`);

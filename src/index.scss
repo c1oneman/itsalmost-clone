@@ -170,7 +170,6 @@ a {
   display: flex;
   flex: 1 0 auto;
   flex-direction: column;
- 
 }
 
 .item {
@@ -226,6 +225,14 @@ a {
   p {
     padding: 4px;
   }
+}
+.center {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-self: center;
+  text-align: center;
+  justify-content: centerz;
 }
 // Forms
 
