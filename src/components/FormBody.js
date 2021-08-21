@@ -33,7 +33,7 @@ const FormBody = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Create an object of all 'form' data
-
+    setErrors([]);
     const newTimer = {
       title: getContent("title"),
       day: getNumber("day"),
@@ -46,7 +46,7 @@ const FormBody = () => {
     TimerFormSchema.validate(newTimer)
       .then(function (result) {
         setLoading(true);
-        setErrors([]);
+
         console.log("Valid?: ", result); // => true
         // Check if user defined PM, add 12 hours if true (24 hour time)
         if (!newTimer.am) {
@@ -69,6 +69,7 @@ const FormBody = () => {
         // Check that date is in future
         if (future < new Date()) {
           console.log("Date is in past.");
+          setErrors(["Date is in the past."]);
           return;
         }
 
