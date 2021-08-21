@@ -1,21 +1,12 @@
-import React, {useContext} from "react";
-import {Link, useHistory} from "react-router-dom";
-import ToggleTheme from "./ToggleTheme";
-import {useDispatch, useSelector} from "react-redux";
-import {setTimer} from "../features/timer/timerSlice";
+import React from "react";
+import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
 import {selectDarkmode} from "../features/darkmode/darkmodeSlice";
 import Countdown from "react-countdown";
 import TimeSimpleModule from "./TimeSimpleModule";
 import {Card} from "../styled-components/preview-card";
 
 const TimerPreview = (props) => {
-  const darkmode = useSelector(selectDarkmode);
-  const theme = darkmode ? "darkmode" : "";
-  // function handleClick(e) {
-  //   e.preventDefault();
-  //   dispatch(setTimer(""));
-  //   history.push(`/`);
-  // }
   return (
     <Card>
       <div className={"left "}>

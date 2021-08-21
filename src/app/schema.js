@@ -25,11 +25,11 @@ export const TimerFormSchema = Yup.object().shape({
     .required("Minute is required")
     .min(1, "Minute is not valid (H:MM format)")
     .max(2, "Minute is not valid (H:MM format)")
-    .matches(/^\d+$/, "Minute is not a number"),
+    .matches(/^([0]?[0-9]|[0-5][0-9])$/, "Minute is not valid."),
   hour: Yup.string()
     .required("Hour is required")
     .min(1, "Hour is not valid (H:MM format)")
     .max(2, "Hour is not valid (H:MM format)")
-    .matches(/^0[1-9]|1[0-2]$/, "Hour is not a number"),
+    .matches(/^([1-9]|1[0-2])$/, "Hour is not valid."),
   am: Yup.boolean().required("AM/PM is required"),
 });

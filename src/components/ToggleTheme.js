@@ -14,8 +14,11 @@ const ToggleTheme = () => {
     dispatch(loadLocalSetting);
   }, []);
   useEffect(() => {
-    localStorage.setItem("preferDark", `${darkmode}`);
+    asyncToggle();
   }, [darkmode]);
+  const asyncToggle = async () => {
+    localStorage.setItem("preferDark", `${darkmode}`);
+  };
   return (
     <div className="toggle__box">
       <span>

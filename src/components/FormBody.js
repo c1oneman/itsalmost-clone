@@ -5,7 +5,7 @@ import Divider from "./Divider";
 import TextTransition, {presets} from "react-text-transition";
 import axios from "axios";
 import * as Yup from "yup";
-import {createTimerAsync, selectTimer} from "../features/timer/timerSlice";
+import {createTimerAsync, selectTimer, setLoading} from "../features/timer/timerSlice";
 import {selectDarkmode} from "../features/darkmode/darkmodeSlice";
 import {TimerFormSchema} from "../app/schema";
 import Error from "../styled-components/error-box";
@@ -30,7 +30,7 @@ const FormBody = () => {
   const [errors, setErrors] = useState([]);
   var now = new Date();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Create an object of all 'form' data
 
@@ -45,57 +45,54 @@ const FormBody = () => {
     };
     TimerFormSchema.validate(newTimer)
       .then(function (result) {
+        setLoading(true);
+        setErrors([]);
         console.log("Valid?: ", result); // => true
+        // Check if user defined PM, add 12 hours if true (24 hour time)
+        if (!newTimer.am) {
+          if (newTimer.hour !== 12) {
+            newTimer.hour = newTimer.hour + 12;
+          }
+        } else if (newTimer.hour === 12) {
+          newTimer.hour = 0;
+        }
+
+        // Create future date object to get expire time from
+        const future = new Date(
+          newTimer.year,
+          newTimer.month - 1,
+          newTimer.day,
+          newTimer.hour,
+          newTimer.minute
+        );
+
+        // Check that date is in future
+        if (future < new Date()) {
+          console.log("Date is in past.");
+          return;
+        }
+
+        // Get unix time from future date
+        const unix = future.getTime();
+        // create object for api call
+        const timerObject = {
+          title: newTimer.title,
+          expires: unix,
+        };
+
+        // Output data for API
+        // console.log(object.title);
+        // console.log(unix);
+        // console.log(JSON.stringify(timerObject));
+
+        // create timer
+        dispatch(createTimerAsync(timerObject));
       })
       .catch(function (err) {
         setErrors(err.errors);
+        console.log(err.errors);
         return;
       });
-    // Check if user defined PM, add 12 hours if true (24 hour time)
-    if (!newTimer.am) {
-      if (newTimer.hour !== 12) {
-        newTimer.hour = newTimer.hour + 12;
-      }
-    } else if (newTimer.hour === 12) {
-      newTimer.hour = 0;
-    }
-
-    // Create future date object to get expire time from
-    const future = new Date(
-      newTimer.year,
-      newTimer.month - 1,
-      newTimer.day,
-      newTimer.hour,
-      newTimer.minute
-    );
-
-    // Check that date is in future
-    if (future < new Date()) {
-      console.log("Date is in past.");
-      return;
-    }
-
-    // Check that title has changed
-    if (newTimer.title == "___________") {
-      console.log("Title is untouched.");
-      return;
-    }
-
-    // Get unix time from future date
-    const unix = future.getTime();
-    // create object for api call
-    const timerObject = {
-      title: newTimer.title,
-      expires: unix,
-    };
-
-    // Output data for API
-    // console.log(object.title);
-    // console.log(unix);
-    // console.log(JSON.stringify(timerObject));
-
-    // create timer
-    dispatch(createTimerAsync(timerObject));
   };
 
   // Used to highlight spans when clicked on

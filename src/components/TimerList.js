@@ -1,16 +1,13 @@
-import React, {useContext, useState, useEffect} from "react";
-import {useHistory} from "react-router-dom";
+import React, {useState, useEffect} from "react";
+
 import {useSelector} from "react-redux";
-import Countdown from "react-countdown";
 import Loader from "react-loader-spinner";
 import axios from "axios";
-import TimeDetailModule from "./TimeDetailModule";
 
 import {selectDarkmode} from "../features/darkmode/darkmodeSlice";
 
 import TimerPreview from "./TimerPreview";
 import {Pager} from "../styled-components/page-chooser";
-import {setLoading} from "../features/timer/timerSlice";
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
 const TimerList = () => {
