@@ -1,4 +1,3 @@
-import React, {useContext} from "react";
 import TextTransition from "react-text-transition";
 import {useSelector} from "react-redux";
 import {selectDarkmode} from "../features/darkmode/darkmodeSlice";

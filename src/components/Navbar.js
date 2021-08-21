@@ -1,4 +1,3 @@
-import React, {useContext} from "react";
 import {Link, useHistory} from "react-router-dom";
 import ToggleTheme from "./ToggleTheme";
 import {useDispatch, useSelector} from "react-redux";

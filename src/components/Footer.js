@@ -9,7 +9,7 @@ const Navbar = () => {
   return (
     <div className={"footer " + theme}>
       <p>
-        Made with <span className="heart">❤</span> in Nebraska |{" "}
+        Made with <span className="heart">❤</span> in Florida |{" "}
       </p>
       <p>
         <Link to="/browse">Browse timers</Link>

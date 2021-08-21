@@ -1,15 +1,12 @@
-import React, {useContext, useState} from "react";
+import {useState} from "react";
 import {useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import Divider from "./Divider";
 import TextTransition, {presets} from "react-text-transition";
-import axios from "axios";
-import * as Yup from "yup";
 import {createTimerAsync, selectTimer, setLoading} from "../features/timer/timerSlice";
 import {selectDarkmode} from "../features/darkmode/darkmodeSlice";
 import {TimerFormSchema} from "../app/schema";
 import Error from "../styled-components/error-box";
-const endpoint = process.env.API_ENDPOINT;
 
 const getContent = (id) => {
   return document.getElementById(id).textContent;
@@ -171,7 +168,7 @@ const FormBody = () => {
               Create Countdown
             </button>
           </div>
-          {errors.length > 0 && <Error>{errors}</Error>}
+          <div className="input-row">{errors.length > 0 && <Error>{errors}</Error>}</div>
         </form>
       </div>
       <div className="item"></div>
